@@ -1,8 +1,8 @@
 const express = require("express");
 
-const config = require("../../pkg/config/config.js");
-const db = require("../../pkg/db/database.js");
-const event = require("../events/handlers/eventsHandler.js");
+const config = require("../../pkg/config/config");
+const db = require("../../pkg/db/database");
+const event = require("../events/handlers/eventsHandler");
 
 db.connect();
 
@@ -22,7 +22,7 @@ api.listen(config.get("services").events.port, (err) => {
   if (err) return console.log(err);
 
   console.log(
-    `Service [events] syccessfully started on ${
+    `Service [events] syccessfully started on port: ${
       config.get("services").events.port
     }`
   );

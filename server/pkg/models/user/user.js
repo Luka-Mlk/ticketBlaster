@@ -25,10 +25,18 @@ const userSchema = mongoose.Schema({
 
 const User = mongoose.model("users", userSchema);
 
-const createUser = async (user) => {
+const create = async (user) => {
   try {
     const newUser = new User(user);
     return await newUser.save();
+  } catch (err) {
+    throw err;
+  }
+};
+
+const getUserByEmail = async (email) => {
+  try {
+    return await User.findOne({ email });
   } catch (err) {
     throw err;
   }
@@ -45,6 +53,14 @@ const getAllUsers = async () => {
 const updateUser = async (id, data) => {
   try {
     return await User.updateOne({ _id: id }, data);
+  } catch (err) {
+    throw err;
+  }
+};
+
+const changePassword = async (id, pass) => {
+  try {
+    return await User.updateOne({ _id: id }, { password: pass });
   } catch (err) {
     throw err;
   }
@@ -67,9 +83,11 @@ const removeUser = async (id) => {
 };
 
 module.exports = {
-  createUser,
+  create,
   getAllUsers,
+  getUserByEmail,
   updateUser,
+  changePassword,
   changePrivileges,
   removeUser,
 };
