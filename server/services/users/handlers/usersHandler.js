@@ -14,7 +14,12 @@ const register = async (req, res) => {
       };
     }
     req.body.password = bcrypt.hashSync(req.body.password);
-    const newAcc = await user.create(req.body);
+    const newAcc = await user.create({
+      fullName: req.body.fullName,
+      email: req.body.email,
+      password: req.body.password,
+      admin: req.body.admin,
+    });
     return res.status(201).send(newAcc);
   } catch (err) {
     console.log(err);
