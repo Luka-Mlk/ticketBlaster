@@ -2,7 +2,15 @@ const event = require("../../../pkg/models/event/event.js");
 
 const createEvent = async (req, res) => {
   try {
-    const newEvent = await event.create(req.body);
+    const newEvent = await event.create({
+      eventName: req.body.eventName,
+      category: req.body.category,
+      date: req.body.date,
+      imagePath: req.body.imagePath,
+      eventDetails: req.body.eventDetails,
+      ticketPrice: req.body.ticketPrice,
+      relatedEvents: req.body.relatedEvents,
+    });
     return res.status(201).send(newEvent);
   } catch (err) {
     console.log(err);
