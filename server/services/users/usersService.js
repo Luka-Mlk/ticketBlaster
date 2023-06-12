@@ -20,10 +20,10 @@ api.use(
   })
 );
 
-api.post("/api/register", user.register);
-api.post("/api/login", user.login);
-api.post("/api/reset-password", user.resetPass);
-api.post("/api/remove-account", user.remove);
+api.post("/api/user/register", user.register);
+api.post("/api/user/login", user.login);
+api.post("/api/user/reset-password", user.resetPass);
+api.post("/api/user/remove-account", user.remove);
 
 api.listen(config.get("services").users.port, (err) => {
   if (err) console.log(err);

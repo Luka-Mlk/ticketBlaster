@@ -16,8 +16,8 @@ api.use(fileUpload());
 api.use(express.json());
 api.use(express.urlencoded({ extended: true }));
 
-api.post("/api/storage", storage.upload);
-api.delete("/api/storage", storage.remove);
+api.post("/api/storage/upload", storage.upload);
+api.delete("/api/storage/delete", storage.remove);
 
 api.listen(config.get("services").storage.port, (err) => {
   if (err) {

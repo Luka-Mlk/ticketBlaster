@@ -11,12 +11,12 @@ const api = express();
 api.use(express.json());
 api.use(express.urlencoded({ extended: true }));
 
-api.post("/api/create-event", event.createEvent);
-api.post("/api/:id/update", event.updateEvent);
-api.post("/api/delete/:id", event.removeEvent);
+api.post("/api/event/create-event", event.createEvent);
+api.patch("/api/event/:id/update", event.updateEvent);
+api.delete("/api/event/delete/:id", event.removeEvent);
 
-api.get("/api/events", event.getAllEvents);
-api.get("/api/:id", event.getOneEvent);
+api.get("/api/event", event.getAllEvents);
+api.get("/api/event/:id", event.getOneEvent);
 
 api.listen(config.get("services").events.port, (err) => {
   if (err) return console.log(err);
