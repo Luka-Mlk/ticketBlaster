@@ -20,10 +20,18 @@ const register = async (req, res) => {
       password: req.body.password,
       admin: req.body.admin,
     });
-    return res.status(201).send(newAcc);
+    // return res.status(201).send(newAcc);
+    return res.status(201).json({
+      status: "success",
+      user: newAcc,
+    });
   } catch (err) {
     console.log(err);
-    return res.status(500).send("Internal server error");
+    // return res.status(500).send("Internal server error");
+    return res.status(500).json({
+      status: "failed",
+      error: "Internal server error",
+    });
   }
 };
 
@@ -50,10 +58,18 @@ const login = async (req, res) => {
     };
     console.log(config.get("security").jwt_secret);
     const token = jwt.sign(payload, config.get("security").jwt_secret);
-    return res.status(200).send({ token });
+    // return res.status(200).send({ token });
+    return res.status(200).json({
+      status: "success",
+      token,
+    });
   } catch (err) {
     console.log(err);
-    return res.status(500).send("Internal server error");
+    // return res.status(500).send("Internal server error");
+    return res.status(500).json({
+      status: "failed",
+      error: "Internal server error",
+    });
   }
 };
 
@@ -92,20 +108,35 @@ const resetPass = async (req, res) => {
       };
     }
     const userPassChanged = await user.changePassword(acc.id, newPassHash);
-    return res.status(200).send(userPassChanged);
+    // return res.status(200).send(userPassChanged);
+    return res.status(200).json({
+      status: "success",
+    });
   } catch (err) {
     console.log(err);
-    res.status(500).send("Internal server error");
+    // res.status(500).send("Internal server error");
+    return res.status(500).json({
+      status: "failed",
+      error: "Internal server error",
+    });
   }
 };
 
 const remove = async (req, res) => {
   try {
     const removedUser = user.removeUser(req.auth.id);
-    return res.status(200).send(removedUser);
+    // return res.status(200).send(removedUser);
+    return res.status(500).json({
+      status: "success",
+      removed: removedUser,
+    });
   } catch (err) {
     console.log(err);
-    res.status(500).send("Internal server error");
+    // res.status(500).send("Internal server error");
+    return res.status(500).json({
+      status: "failed",
+      error: "Internal server error",
+    });
   }
 };
 
