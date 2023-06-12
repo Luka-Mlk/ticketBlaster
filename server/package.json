@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./services/events/eventsService.js & node ./services/users/usersService.js",
-    "startwin": "pm2 start ./services/users/usersService.js --name users-service & pm2 start ./services/events/eventsService.js --name events-service",
+    "start": "node ./services/users/usersService.js & node ./services/events/eventsService.js & node ./services/upload/uploadService.js & node ./services/proxy/proxyService.js",
+    "startwin": "pm2 start ./services/users/usersService.js --name users-service & pm2 start ./services/events/eventsService.js --name events-service & pm2 start ./services/upload/uploadService.js --name uploads-service & pm2 start ./services/proxy/proxyService.js --name proxy-service",
     "logs": "pm2 logs",
     "stop": "pm2 stop all"
   },
@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
     "express-http-proxy": "^1.6.3",
