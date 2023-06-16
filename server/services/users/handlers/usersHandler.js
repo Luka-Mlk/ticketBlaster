@@ -54,9 +54,11 @@ const login = async (req, res) => {
       fullName: acc.fullName,
       email: acc.email,
       id: acc.id,
+      admin: acc.admin,
       //   exp: new Date().getTime() / 1000 / 60 + 45,
     };
-    console.log(config.get("security").jwt_secret);
+    console.log(payload);
+    // console.log(config.get("security").jwt_secret);
     const token = jwt.sign(payload, config.get("security").jwt_secret);
     // return res.status(200).send({ token });
     return res.status(200).json({
@@ -124,7 +126,7 @@ const resetPass = async (req, res) => {
 
 const remove = async (req, res) => {
   try {
-    const removedUser = user.removeUser(req.auth.id);
+    const removedUser = await user.removeUser(req.auth.id);
     // return res.status(200).send(removedUser);
     return res.status(500).json({
       status: "success",
@@ -140,9 +142,72 @@ const remove = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await user.getAllUsers();
+    return res.status(200).json({
+      status: "success",
+      allUsers,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      status: "failed",
+      error: "Internal server error",
+    });
+  }
+};
+
+const getSingleUser = async (req, res) => {
+  try {
+    if (req.auth.admin) {
+      const singleUser = await user.getUserById(req.auth.id);
+      return res.status(200).json({
+        status: "success",
+        singleUser,
+      });
+    }
+    return res.status(400).json({
+      status: "failed",
+      error: "Incorrect priviliges",
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      status: "failed",
+      error: "Internal server error",
+    });
+  }
+};
+
+const removeUser = async (req, res) => {
+  try {
+    if (req.auth.admin) {
+      const deletedUser = await user.removeUser(req.params.id);
+      return res.status(200).json({
+        status: "success",
+        deletedUser,
+      });
+    }
+    return res.status(400).json({
+      status: "failed",
+      error: "Incorrect priviliges",
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      status: "failed",
+      error: "Internal server error",
+    });
+  }
+};
+
 module.exports = {
   register,
   login,
   resetPass,
+  removeUser,
+  getAllUsers,
+  getSingleUser,
   remove,
 };
