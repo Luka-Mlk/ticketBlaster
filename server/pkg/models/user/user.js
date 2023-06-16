@@ -42,6 +42,14 @@ const getUserByEmail = async (email) => {
   }
 };
 
+const getUserById = async (id) => {
+  try {
+    return await User.findOne({ _id: id });
+  } catch (err) {
+    throw err;
+  }
+};
+
 const getAllUsers = async () => {
   try {
     return await User.find({});
@@ -86,6 +94,7 @@ module.exports = {
   create,
   getAllUsers,
   getUserByEmail,
+  getUserById,
   updateUser,
   changePassword,
   changePrivileges,
