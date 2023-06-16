@@ -63,6 +63,25 @@ const getOne = async (id) => {
   }
 };
 
+const getByDetails = async (data) => {
+  try {
+    const reg = new RegExp(data, "i");
+    // i flag makes regex case insensitive and no \\b means it just needs to contain the word even if it means in another word
+    return await Event.find({ eventDetails: { $regex: reg } }); // query search that matches regular expression
+  } catch (err) {
+    throw err;
+  }
+};
+
+const getByCategory = async (category) => {
+  try {
+    const reg = new RegExp(category); // MUST BE EXACT MATCH
+    return await Event.find({ category: { $regex: reg } });
+  } catch (err) {
+    throw err;
+  }
+};
+
 const update = async (id, data) => {
   try {
     return await Event.updateOne({ _id: id }, data);
@@ -83,6 +102,8 @@ module.exports = {
   create,
   getAll,
   getOne,
+  getByDetails,
+  getByCategory,
   update,
   remove,
 };
