@@ -22,9 +22,10 @@ api.use(
 
 api.post("/api/user/register", user.register);
 api.post("/api/user/login", user.login);
-api.post("/api/user/reset-password", user.resetPass);
-api.post("/api/user/remove-account", user.remove);
-api.post("/api/user/remove-user", user.removeUser);
+api.patch("/api/user/reset-password", user.resetPass);
+api.patch("/api/user/change-credentials", user.updateUserCred);
+api.delete("/api/user/remove-account", user.remove);
+api.delete("/api/user/remove-user", user.removeUser);
 
 api.get("/api/user/all-users", user.getAllUsers);
 api.get("/api/user/my-profile", user.getSingleUser);
