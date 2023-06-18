@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./services/users/usersService.js & node ./services/events/eventsService.js & node ./services/upload/uploadService.js & node ./services/proxy/proxyService.js",
-    "startwin": "pm2 start ./services/users/usersService.js --name users-service & pm2 start ./services/events/eventsService.js --name events-service & pm2 start ./services/upload/uploadService.js --name uploads-service & pm2 start ./services/proxy/proxyService.js --name proxy-service",
+    "startwin": "pm2 start ./services/users/usersService.js --watch --name users-service & pm2 start ./services/events/eventsService.js --watch --name events-service & pm2 start ./services/upload/uploadService.js --watch --name uploads-service & pm2 start ./services/ecommerce/ecommerceService.js --watch --name ecommerce-service & pm2 start ./services/proxy/proxyService.js --watch --name proxy-service",
     "logs": "pm2 logs",
     "stop": "pm2 stop all"
   },
