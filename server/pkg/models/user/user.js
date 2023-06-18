@@ -21,6 +21,20 @@ const userSchema = mongoose.Schema({
     enum: [true, false],
     default: false,
   },
+  cart: [
+    {
+      _id: false /* Za mongoose da ne generira avtomatski ushte eden nepotreben id ALI NE RABOTI*/,
+      event: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "event",
+        required: false,
+      },
+      numTickets: {
+        type: Number,
+        default: 1,
+      },
+    },
+  ],
 });
 
 const User = mongoose.model("users", userSchema);
