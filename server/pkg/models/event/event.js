@@ -30,7 +30,7 @@ const eventSchema = mongoose.Schema({
   relatedEvents: [
     {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "Event",
+      ref: "event",
       required: false,
     },
   ],
