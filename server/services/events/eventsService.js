@@ -25,6 +25,8 @@ api.use(
   })
 );
 
+api.post("/api/event/:id/add-to-cart", event.addToCart);
+api.post("/api/event/:id/remove-from-cart", event.removeFromCart);
 api.post("/api/event/create-event", event.createEvent);
 api.patch("/api/event/:id/update", event.updateEvent);
 api.delete("/api/event/delete/:id", event.removeEvent);
