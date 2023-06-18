@@ -8,6 +8,12 @@ const api = express();
 
 api.use(cors());
 
+const ecommerceProxy = proxy("http://localhost:4996", {
+  proxyReqPathResolver: (req) => {
+    return `/api/ecommerce${req.url}`;
+  },
+});
+
 const storageProxy = proxy("http://localhost:4997", {
   proxyReqPathResolver: (req) => {
     return `/api/storage${req.url}`;
@@ -26,6 +32,7 @@ const eventsProxy = proxy("http://localhost:4999", {
   },
 });
 
+api.use("/api/ecommerce", ecommerceProxy);
 api.use("/api/storage", storageProxy);
 api.use("/api/user", usersProxy);
 api.use("/api/event", eventsProxy);
