@@ -57,7 +57,6 @@ const login = async (req, res) => {
       admin: acc.admin,
       //   exp: new Date().getTime() / 1000 / 60 + 45,
     };
-    console.log(payload);
     // console.log(config.get("security").jwt_secret);
     const token = jwt.sign(payload, config.get("security").jwt_secret);
     // return res.status(200).send({ token });
@@ -88,6 +87,41 @@ const login = async (req, res) => {
 //     res.sttatus(500).send("Internal server error");
 //   }
 // };
+
+const updateUserCred = async (req, res) => {
+  try {
+    if (!req.auth.id) {
+      return res.statuS(400).json({
+        status: "failed",
+        error: "Must be logged in to change user credentials",
+      });
+    }
+
+    const usr = await user.getUserById(req.auth.id);
+
+    if (req.body.newFullName || req.body.newEmail) {
+      const newFullName =
+        req.body.newFullName !== "" ? req.body.newFullName : usr.fullName;
+      // const newName = req.body.newName;
+      const newEmail = req.body.newEmail !== "" ? req.body.newEmail : usr.email;
+      usr.fullName = newFullName;
+      usr.email = newEmail;
+    }
+
+    await user.updateUser(req.auth.id, usr);
+
+    return res.status(200).json({
+      status: "success",
+      usr,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      status: "failed",
+      error: "Internal server error",
+    });
+  }
+};
 
 const resetPass = async (req, res) => {
   try {
@@ -144,10 +178,16 @@ const remove = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
-    const allUsers = await user.getAllUsers();
-    return res.status(200).json({
-      status: "success",
-      allUsers,
+    if (req.auth.admin) {
+      const allUsers = await user.getAllUsers();
+      return res.status(200).json({
+        status: "success",
+        allUsers,
+      });
+    }
+    return res.status(400).json({
+      status: "failed",
+      error: "Incorrect priviliges",
     });
   } catch (err) {
     console.log(err);
@@ -207,6 +247,7 @@ module.exports = {
   login,
   resetPass,
   removeUser,
+  updateUserCred,
   getAllUsers,
   getSingleUser,
   remove,
