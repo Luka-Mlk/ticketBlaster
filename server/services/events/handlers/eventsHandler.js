@@ -1,4 +1,5 @@
 const event = require("../../../pkg/models/event/event.js");
+const user = require("../../../pkg/models/user/user.js");
 
 const createEvent = async (req, res) => {
   try {
@@ -33,6 +34,73 @@ const createEvent = async (req, res) => {
   } catch (err) {
     console.log(err);
     // return res.status(500).send("Internal server error");
+    return res.status(500).json({
+      status: "failed",
+      error: "Internal server error",
+    });
+  }
+};
+
+const addToCart = async (req, res) => {
+  try {
+    if (!req.auth) {
+      return res.status(400).json({
+        status: "failed",
+        error: "must be logged in to add to cart",
+      });
+    }
+    const usr = await user.getUserById(req.auth.id);
+
+    const evnt = {
+      event: req.params.id,
+      numTickets: req.body.numTickets || 1,
+    };
+
+    const cartMap = new Map(
+      usr.cart.map((item) => [item.event.toString(), item])
+    );
+
+    if (cartMap.has(req.params.id)) {
+      cartMap.get(req.params.id).numTickets += evnt.numTickets;
+    } else {
+      usr.cart.push(evnt);
+    }
+
+    user.updateUser(req.auth.id, usr);
+
+    return res.status(200).json({
+      status: "success",
+      modifiedUser: usr,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      status: "failed",
+      error: "Internal server error",
+    });
+  }
+};
+
+const removeFromCart = async (req, res) => {
+  try {
+    if (!req.auth) {
+      return res.status(400).json({
+        status: "failed",
+        error: "must be logged in to remove from cart",
+      });
+    }
+    const usr = await user.getUserById(req.auth.id);
+
+    usr.cart = usr.cart.filter((id) => id.event.toString() !== req.params.id);
+
+    user.updateUser(req.auth.id, usr);
+
+    return res.status(200).json({
+      status: "success",
+      modifiedUser: usr,
+    });
+  } catch (err) {
+    console.log(err);
     return res.status(500).json({
       status: "failed",
       error: "Internal server error",
@@ -166,6 +234,8 @@ module.exports = {
   createEvent,
   getAllEvents,
   getOneEvent,
+  addToCart,
+  removeFromCart,
   getEventByContent,
   getEventByCategory,
   updateEvent,
