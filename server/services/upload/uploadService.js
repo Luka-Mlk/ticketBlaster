@@ -2,7 +2,7 @@ const express = require("express");
 const config = require("../../pkg/config/config");
 const fileUpload = require("express-fileupload");
 const { expressjwt: jwt } = require("express-jwt");
-const storage = require("./handlers/storage");
+const storage = require("./handlers/storageHandler");
 
 const api = express();
 
