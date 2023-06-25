@@ -1,0 +1,22 @@
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.footer--wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 90%;
+  max-width: 1200px;
+  padding: 30px 0;
+}
+
+footer p {
+  color: var(--clr-black);
+  opacity: 0.3;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-lb);
+}

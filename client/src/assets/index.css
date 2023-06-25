@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+
+:root {
+  --clr-black: #000000;
+  --clr-darkgray: #393939;
+  --clr-lightgray: #d3d3d3;
+  --clr-white: #ffffff;
+  --clr-darkpink: #ee47a0;
+  --clr-lightpink: #ff48ab;
+
+  --fs-xs: 14px;
+  --fs-s: 16px;
+  --fs-m: 18px;
+  --fs-mm: 19px;
+  --fs-ml: 24px;
+  --fs-l: 28px;
+  --fs-lm: 33px;
+  --fs-xl: 40px;
+
+  --fw-r: 400;
+  --fw-lb: 700;
+  --fw-b: 900;
+}
+
+a {
+  text-decoration: none;
+  color: var(--clr-lightgray);
+}
+
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button,
+input {
+  inset: none;
+  outline: none;
+  border: none;
+}
+
+.event--list--descriptors {
+  font-size: var(--fs-lm);
+  margin: 0 0 30px 0;
+}
+
+.events--wrapper {
+  display: flex;
+  max-width: 1200px;
+  width: 90%;
+}
+
+.events--wrapper .events--subwrapper:nth-child(1) {
+  margin: 0 50px 0 0;
+}
+
+.events--subwrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.events--subwrapper div.narrow--event--card:last-child {
+  margin-bottom: 90px;
+}
+
+.narrow--content--button {
+  width: 100%;
+  border: 1px solid var(--clr-black);
+  color: var(--clr-black);
+  background-color: transparent;
+  font-size: var(--fs-mm);
+  font-weight: var(--fw-lb);
+  padding: 10px 0;
+  margin: 0 0 90px 0;
+  border-radius: 20px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+}
