@@ -19,6 +19,7 @@ api.use(
 );
 
 api.post("/api/ecommerce/checkout", ecommerce.checkOut);
+api.get("/api/ecommerce/history", ecommerce.getHistory);
 
 api.listen(config.get("services").ecommerce.port, (err) => {
   if (err) console.log(err);

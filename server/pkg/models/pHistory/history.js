@@ -57,7 +57,7 @@ const read = async (id) => {
 
 const update = async (id, data) => {
   try {
-    return await personHistory.updateOne({ personId: id }, data);
+    return await personHistory.updateOne({ personId: id }, { $set: data });
   } catch (err) {
     throw err;
   }
