@@ -3,7 +3,6 @@ const user = require("../../../pkg/models/user/user.js");
 
 const createEvent = async (req, res) => {
   try {
-    console.log(req.auth);
     if (req.auth.admin) {
       // if user is admin allow event creation
       const newEvent = await event.create({
@@ -13,6 +12,7 @@ const createEvent = async (req, res) => {
         date: req.body.date,
         imagePath: req.body.imagePath,
         eventDetails: req.body.eventDetails,
+        location: req.body.location,
         ticketPrice: req.body.ticketPrice,
         relatedEvents: req.body.relatedEvents,
       });

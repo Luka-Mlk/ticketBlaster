@@ -18,9 +18,9 @@ api.use(
   }).unless({
     path: [
       "/api/event/",
-      "/api/event/category/:category",
-      "/api/event/content/:keyword",
-      "/api/event/:id",
+      /^\/api\/event\/category\/.*/,
+      /^\/api\/event\/content\/.*/,
+      /^\/api\/event\/.*/,
     ],
   })
 );

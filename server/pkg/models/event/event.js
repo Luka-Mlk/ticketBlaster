@@ -4,7 +4,6 @@ const eventSchema = mongoose.Schema({
   eventName: {
     type: String,
     required: true,
-    minLength: 3,
   },
   category: {
     type: String,
@@ -22,6 +21,20 @@ const eventSchema = mongoose.Schema({
     type: String,
     required: true,
     minLength: 3,
+  },
+  location: {
+    _id: false,
+    type: {
+      country: {
+        type: String,
+        required: true,
+      },
+      city: {
+        type: String,
+        required: true,
+      },
+    },
+    required: true,
   },
   ticketPrice: {
     type: Number,
