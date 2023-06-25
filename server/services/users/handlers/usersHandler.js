@@ -15,6 +15,7 @@ const register = async (req, res) => {
     }
     req.body.password = bcrypt.hashSync(req.body.password);
     const newAcc = await user.create({
+      imagePath: req.body.imagePath || "",
       fullName: req.body.fullName,
       email: req.body.email,
       password: req.body.password,
@@ -114,6 +115,17 @@ const updateUserCred = async (req, res) => {
       status: "success",
       usr,
     });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      status: "failed",
+      error: "Internal server error",
+    });
+  }
+};
+
+const forgotPass = async (req, res) => {
+  try {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
@@ -251,4 +263,5 @@ module.exports = {
   getAllUsers,
   getSingleUser,
   remove,
+  forgotPass,
 };

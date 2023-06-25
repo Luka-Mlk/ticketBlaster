@@ -16,7 +16,11 @@ api.use(
     secret: config.get("security").jwt_secret,
     algorithms: ["HS256"],
   }).unless({
-    path: ["/api/user/register", "/api/user/login"],
+    path: [
+      "/api/user/register",
+      "/api/user/login",
+      "/api/user/forgot-password",
+    ],
   })
 );
 
@@ -26,6 +30,7 @@ api.patch("/api/user/reset-password", user.resetPass);
 api.patch("/api/user/change-credentials", user.updateUserCred);
 api.delete("/api/user/remove-account", user.remove);
 api.delete("/api/user/remove-user", user.removeUser);
+api.post("/api/user/forgot-password", user.forgotPass);
 
 api.get("/api/user/all-users", user.getAllUsers);
 api.get("/api/user/my-profile", user.getSingleUser);
