@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function NarrowContentButton() {
-  return <button className="narrow--content--button">Load more content</button>;
+  return <Link className="narrow--content--button">Load more content</Link>;
 }
 
 export default NarrowContentButton;

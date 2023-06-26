@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../../assets/hero/hero.css";
 import rage from "../../assets/img/rage-against.jpg";
 
@@ -12,7 +13,7 @@ function Hero() {
             <h2>Rage Against The Machine</h2>
             <h3>June 9th 2023, Vienna, Austria</h3>
           </div>
-          <button>Get Tickets</button>
+          <Link className="hero--action">Get Tickets</Link>
         </div>
       </section>
     </div>

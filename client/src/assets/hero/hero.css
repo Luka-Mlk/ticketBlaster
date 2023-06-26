@@ -53,7 +53,9 @@
   opacity: 0.7;
 }
 
-.hero--event button {
+.hero--action {
+  background-color: var(--clr-white);
+  color: var(--clr-black);
   padding: 11px 50px;
   border-radius: 20px;
   font-weight: var(--fw-lb);

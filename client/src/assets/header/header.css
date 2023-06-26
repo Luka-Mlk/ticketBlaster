@@ -37,7 +37,7 @@ header {
   font-size: var(--fs-s);
 }
 
-.header--right--items :nth-child(1) {
+.header--right--items :nth-child(1) input {
   padding: 11px 20px;
   width: 295px;
   border-radius: 20px;

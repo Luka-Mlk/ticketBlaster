@@ -1,0 +1,17 @@
+.login--page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login--page h2 {
+  font-size: var(--fs-xxl);
+  font-weight: var(--fw-b);
+}
+
+.form--wrapper {
+  max-width: 1200px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}

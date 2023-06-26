@@ -44,7 +44,7 @@
   font-weight: var(--fw-b);
 }
 
-.narrow--event--actions button {
+.narrow--event--actions--ticket {
   padding: 7.5px 31px;
   border-radius: 20px;
   background-color: var(--clr-black);

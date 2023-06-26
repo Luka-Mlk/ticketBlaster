@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../../assets/cards/narrow/narrow.css";
 import imgPath from "../../assets/img/xzibit.jpg";
 
@@ -16,7 +17,7 @@ function NarrowCard() {
         </p>
         <div className="narrow--event--actions">
           <p>Zagreb, Croatia</p>
-          <button>Get tickets</button>
+          <Link className="narrow--event--actions--ticket">Get tickets</Link>
         </div>
       </div>
     </div>

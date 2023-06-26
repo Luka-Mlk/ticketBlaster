@@ -8,16 +8,18 @@ function Header() {
     <header>
       <div className="header--side--wrap">
         <div className="header--left--items">
-          <Link>
+          <Link to="/">
             <img src={ticketBlasterLogo} alt="ticket blaster logo" />
           </Link>
           <Link>Musical Concerts</Link>
           <Link>Stand-up Comedy</Link>
         </div>
         <div className="header--right--items">
-          <input type="text" placeholder="Search" />
-          <button>Log In</button>
-          <button>Create Account</button>
+          <form action="">
+            <input type="text" placeholder="Search" />
+          </form>
+          <Link to="/login">Log In</Link>
+          <Link>Create Account</Link>
         </div>
       </div>
     </header>
