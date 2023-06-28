@@ -11,8 +11,8 @@ function Header() {
           <Link to="/">
             <img src={ticketBlasterLogo} alt="ticket blaster logo" />
           </Link>
-          <Link>Musical Concerts</Link>
-          <Link>Stand-up Comedy</Link>
+          <Link to="/events/concert">Musical Concerts</Link>
+          <Link to="/events/standup">Stand-up Comedy</Link>
         </div>
         <div className="header--right--items">
           <form action="">

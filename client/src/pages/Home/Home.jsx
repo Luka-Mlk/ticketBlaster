@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../../components/header/Header";
 import Hero from "../../components/hero/hero";
 import NarrowCard from "../../components/cards/NarrowCard";
-import NarrowContentButton from "../../assets/buttons/narrow/NarrowContentButton";
+import ContentButton from "../../components/ContentButton/ContentButton";
 import Footer from "../../components/footer/Footer";
 
 function Home() {
@@ -15,13 +15,13 @@ function Home() {
           <h3 className="event--list--descriptors">Musical Concerts</h3>
           <NarrowCard />
           <NarrowCard />
-          <NarrowContentButton />
+          <ContentButton />
         </div>
         <div className="events--subwrapper">
           <h3 className="event--list--descriptors">Stand-up Comedy</h3>
           <NarrowCard />
           <NarrowCard />
-          <NarrowContentButton />
+          <ContentButton />
         </div>
       </div>
       <Footer />

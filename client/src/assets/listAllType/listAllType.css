@@ -1,0 +1,6 @@
+.list--all--type {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 50px;
+  margin: 40px 0 0 0;
+}
