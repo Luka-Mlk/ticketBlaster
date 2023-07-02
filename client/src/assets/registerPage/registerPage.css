@@ -1,12 +1,10 @@
-.login--page {
+.register--page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  height: 100vh;
 }
 
-.login--page h2 {
+.register--page h2 {
   font-size: var(--fs-xxl);
   font-weight: var(--fw-b);
 }

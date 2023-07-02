@@ -6,7 +6,9 @@ import imgPath from "../../assets/img/xzibit.jpg";
 function NarrowCard() {
   return (
     <div className="narrow--event--card">
-      <img src={imgPath} alt="card image" />
+      <span id="imgWrapper">
+        <img src={imgPath} alt="card image" />
+      </span>
       <div className="narrow--event--description">
         <h3>Event</h3>
         <h4>June 9th, 2023</h4>

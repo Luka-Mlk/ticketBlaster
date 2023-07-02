@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../../components/header/Header";
 import LoginForm from "../../components/loginForm/loginFrom";
 import "../../assets/loginPage/loginPage.css";
+import Footer from "../../components/footer/Footer";
 
 function Login() {
   return (
@@ -12,6 +13,7 @@ function Login() {
         <h2>Log In</h2>
         <LoginForm />
       </div>
+      <Footer />
     </div>
   );
 }

@@ -4,12 +4,21 @@
   align-items: center;
   gap: 18px;
   margin: 0 0 50px 0;
+  height: 155px;
+  /* overflow: hidden; */
 }
 
-.narrow--event--card img {
-  /* width: 260px; */
-  height: 155px;
+#imgWrapper {
+  min-width: 260px;
+  height: 100%;
   border-radius: 20px;
+  overflow: hidden;
+}
+
+#imgWrapper img {
+  width: 260px;
+  /* display: none; */
+  /* height: 155px; */
 }
 
 .narrow--event--description {

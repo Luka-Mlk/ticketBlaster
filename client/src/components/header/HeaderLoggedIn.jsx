@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ticketBlasterLogo from "../../assets/img/ticketBlaster.svg";
 
-function Header() {
+function HeaderLoggedIn() {
   return (
     <header>
       <div className="header--side--wrap">
@@ -18,12 +18,16 @@ function Header() {
           <form action="">
             <input type="text" placeholder="Search" />
           </form>
-          <Link to="/login">Log In</Link>
-          <Link to="/register">Create Account</Link>
+          <Link id="cart--icon" to="/cart">
+            <i className="fa-solid fa-cart-shopping"></i>
+          </Link>
+          <Link id="profile" to="/profile">
+            <i className="fa-solid fa-user"></i>
+          </Link>
         </div>
       </div>
     </header>
   );
 }
 
-export default Header;
+export default HeaderLoggedIn;

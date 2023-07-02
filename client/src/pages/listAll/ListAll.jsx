@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import NarrowCard from "../../components/cards/NarrowCard";
 import Header from "../../components/header/Header";
 import ListAllType from "../../components/ListAllType/ListAllType";
-import NarrowContentButton from "../../components/ContentButton/ContentButton";
+import ContentButton from "../../components/ContentButton/ContentButton";
+import Footer from "../../components/footer/Footer";
 
 function ListAll() {
   return (
@@ -12,8 +12,9 @@ function ListAll() {
       <div className="events--page--wrapper">
         <h2>Content Type</h2>
         <ListAllType />
-        <NarrowContentButton />
+        <ContentButton />
       </div>
+      <Footer />
     </div>
   );
 }

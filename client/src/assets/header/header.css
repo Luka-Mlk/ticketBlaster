@@ -13,6 +13,7 @@ header {
   background-color: var(--clr-black);
   width: 100%;
   margin: 0 0 50px 0;
+  letter-spacing: -0.1px;
 }
 
 .header--left--items {
@@ -23,7 +24,7 @@ header {
 
 .header--left--items img {
   width: 150px;
-  margin: 25px 50px 25px 8px;
+  margin: 24px 50px 19px 8px;
 }
 
 .header--left--items :nth-child(2) {
@@ -38,12 +39,14 @@ header {
 }
 
 .header--right--items :nth-child(1) input {
+  font-size: var(--fs-m);
   padding: 11px 20px;
   width: 295px;
   border-radius: 20px;
   color: var(--clr-black);
   background-color: var(--clr-white);
-  font-weight: var(--fw-b);
+  font-weight: var(--fw-lb);
+  letter-spacing: -1px;
 }
 
 .header--right--items :nth-child(1),
@@ -66,4 +69,33 @@ header {
   background-color: var(--clr-black);
   border: 1px solid var(--clr-darkpink);
   font-weight: var(--fw-lb);
+}
+
+#cart--icon {
+  padding: 0;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 20px 0 20px;
+}
+
+#cart--icon i {
+  color: var(--clr-darkpink);
+  font-size: var(--fs-mm);
+}
+
+#profile {
+  padding: 0;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  margin: 0 24px 0 0;
+}
+
+#profile i {
+  color: var(--clr-darkpink);
+  font-size: var(--fs-mm);
 }

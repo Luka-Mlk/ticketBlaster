@@ -1,0 +1,80 @@
+.wide--event--card {
+  height: 115px;
+  margin: 0 0 40px 0;
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.wide--event--image--wrapper {
+  min-width: 195px;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  border-radius: 20px;
+}
+
+.wide--event--image--wrapper img {
+  width: 195px;
+}
+
+.wide--event--description {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.wide--event--description--text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.wide--event--description--text h3 {
+  font-size: var(--fs-ml);
+  font-weight: var(--fw-b);
+  letter-spacing: -1px;
+}
+
+.wide--event--description--text h4 {
+  font-size: var(--fs-m);
+  font-weight: var(--fw-lb);
+  color: var(--clr-lightpink);
+}
+
+.wide--event--description--text p {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-lb);
+}
+
+.wide--event--description--values {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: baseline;
+  gap: 1px;
+}
+
+.wide--event--description--values h3 {
+  font-size: var(--fs-ml);
+  font-weight: var(--fw-b);
+}
+
+.wide--event--description--values h4 {
+  font-size: var(--fs-m);
+  font-weight: var(--fw-lb);
+  color: var(--clr-lightpink);
+}
+
+.wide--event--description--values--action {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-r);
+  background-color: var(--clr-black);
+  text-align: center;
+  border-radius: 20px;
+  margin: 15px 0 0 0;
+  padding: 8px 40px;
+}
