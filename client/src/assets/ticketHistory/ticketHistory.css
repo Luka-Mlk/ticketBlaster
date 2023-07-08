@@ -1,0 +1,6 @@
+.user--ticket--history {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0px 50px;
+  margin: 40px 0 0 0;
+}

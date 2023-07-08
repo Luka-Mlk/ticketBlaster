@@ -63,7 +63,7 @@ button,
 input {
   inset: none;
   outline: none;
-  border: none;
+  /* border: none; */
 }
 /* HEADER TEXT ABOVE EVENTS */
 .event--list--descriptors {

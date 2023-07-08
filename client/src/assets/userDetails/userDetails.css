@@ -1,0 +1,169 @@
+input {
+  border: 1.5px solid var(--clr-black);
+  border-radius: 20px;
+  padding: 5px 15px;
+}
+
+label {
+  font-size: var(--fs-m);
+  font-weight: var(--fw-lb);
+  letter-spacing: -1px;
+}
+
+button {
+  font-size: var(--fs-s);
+}
+
+.user--details--form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 525px;
+  margin: 64px 0 0 35px;
+}
+
+.user--details--img--and--name--div {
+  display: flex;
+  align-items: flex-start;
+  gap: 51px;
+}
+
+.user--details--img--wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  height: 100px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  margin: 0 0 0 16px;
+}
+
+.user--details--img--wrapper img {
+  width: 150px;
+}
+
+.user--details--full--name--div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.user--details--full--name--div label {
+  letter-spacing: -1px;
+}
+
+.user--details--full--name--div input {
+  width: 357px;
+  font-size: var(--fs-ml);
+}
+
+.user--details--upload--avatar--and--email {
+  display: flex;
+  gap: 39px;
+}
+
+.user--details--upload--avatar--button {
+  padding: 9px 19.5px;
+  border: 1px solid var(--clr-black);
+  border-radius: 20px;
+  background-color: transparent;
+  color: var(--clr-lightpink);
+  letter-spacing: -1px;
+  margin: 30px 0 0 0;
+}
+
+.user--details--email--div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.user--details--email--div label {
+  letter-spacing: -1px;
+}
+
+.user--details--email--div input {
+  width: 357px;
+  font-size: var(--fs-ml);
+}
+
+.user--details--submit--button {
+  margin: 50px 0 0 0;
+}
+
+.user--details--submit--button button {
+  color: var(--clr-white);
+  background-color: var(--clr-black);
+  border-radius: 20px;
+  padding: 9.5px 37.5px;
+}
+
+.user--details--password--change--div {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 80px 0 0 0;
+}
+
+.user--details--password--change--div h3 {
+  letter-spacing: -1px;
+  font-size: var(--fs-ml);
+  font-weight: var(--fw-b);
+}
+
+.user--details--password--change--div button {
+  background-color: var(--clr-lightpink);
+  color: var(--clr-white);
+  border: none;
+  border-radius: 20px;
+  padding: 11.5px 52.5px;
+}
+
+.user--details--retype--password {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  width: 100%;
+  margin: 35px 0 0 0;
+}
+
+.user--details--retype--password input {
+  width: 100%;
+  font-size: var(--fs-ml);
+}
+
+.user--detials--initial--password--div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.user--details--re--type--password--div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.user--details--submit--password--button {
+  margin: 36px 0 0 0;
+}
+
+.user--details--submit--password--button button {
+  padding: 9.5px 39.5px;
+  border-radius: 20px;
+  letter-spacing: -1px;
+  color: var(--clr-white);
+  background-color: var(--clr-black);
+}
+
+.hidden {
+  display: none;
+}

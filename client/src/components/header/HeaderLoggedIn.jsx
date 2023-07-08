@@ -21,7 +21,7 @@ function HeaderLoggedIn() {
           <Link id="cart--icon" to="/cart">
             <i className="fa-solid fa-cart-shopping"></i>
           </Link>
-          <Link id="profile" to="/profile">
+          <Link id="profile" to="/user">
             <i className="fa-solid fa-user"></i>
           </Link>
         </div>

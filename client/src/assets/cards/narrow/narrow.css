@@ -59,3 +59,7 @@
   background-color: var(--clr-black);
   color: var(--clr-white);
 }
+
+.print {
+  padding: 7px 47.5px;
+}

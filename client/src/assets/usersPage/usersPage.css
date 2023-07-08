@@ -1,0 +1,6 @@
+.users--admin--div {
+  height: 80%;
+  overflow-y: scroll;
+  margin: 60px 0 0 0;
+  padding: 25px 10px 0 10px;
+}
