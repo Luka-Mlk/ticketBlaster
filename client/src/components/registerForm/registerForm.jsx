@@ -15,7 +15,7 @@ function RegisterForm() {
       <input type="password" />
       <div className="register--actions">
         <Link>Create account</Link>
-        <Link>Already have an account?</Link>
+        <Link to="/login">Already have an account?</Link>
       </div>
     </form>
   );

@@ -59,12 +59,17 @@ main {
   align-items: center;
 }
 
-button,
 input {
   inset: none;
   outline: none;
-  /* border: none; */
 }
+
+button {
+  inset: none;
+  outline: none;
+  border: none;
+}
+
 /* HEADER TEXT ABOVE EVENTS */
 .event--list--descriptors {
   font-size: var(--fs-lm);

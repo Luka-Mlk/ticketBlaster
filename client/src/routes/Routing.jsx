@@ -6,6 +6,7 @@ import ListAll from "../pages/listAll/ListAll";
 import Register from "../pages/register/Register";
 import Cart from "../pages/cart/Cart";
 import User from "../pages/user/User";
+import Event from "../components/eventFull/Event";
 
 function Routing() {
   return (
@@ -16,6 +17,7 @@ function Routing() {
       <Route path="/events/:catergory" element={<ListAll />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/user" element={<User />} />
+      <Route path="/event" element={<Event />} />
     </Routes>
   );
 }

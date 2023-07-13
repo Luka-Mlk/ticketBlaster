@@ -10,7 +10,6 @@ function Events() {
       <WideAdmin />
       <WideAdmin />
       <WideAdmin />
-      <hr />
     </div>
   );
 }

@@ -19,7 +19,9 @@ function NarrowCard() {
         </p>
         <div className="narrow--event--actions">
           <p>Zagreb, Croatia</p>
-          <Link className="narrow--event--actions--ticket">Get tickets</Link>
+          <Link className="narrow--event--actions--ticket" to="/event">
+            Get tickets
+          </Link>
         </div>
       </div>
     </div>

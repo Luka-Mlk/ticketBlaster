@@ -33,7 +33,11 @@ function User() {
         <div className="user--component--heading">
           <div className="user--component--heading--div">
             <h2>{activeComponent}</h2>
-            {activeComponent === "Events" ? <button>Create Event</button> : ""}
+            {activeComponent === "Events" ? (
+              <button className="create--event--button">Create Event</button>
+            ) : (
+              ""
+            )}
           </div>
           <div className="user--component--navigation">
             <Link

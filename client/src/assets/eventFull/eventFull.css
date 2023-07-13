@@ -1,0 +1,133 @@
+.event--component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.event--content--wrapper {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.event--information--div {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.event--information--div h2 {
+  font-size: var(--fs-xxl);
+  font-weight: var(--fw-lb);
+  letter-spacing: -1px;
+}
+
+.event--information--div h3 {
+  font-size: var(--fs-ml);
+  font-weight: var(--fw-lb);
+  letter-spacing: -1px;
+}
+
+.event--content--div {
+  margin: 30px 0 0 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.event--img--wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 580px;
+  height: 340px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.event--img--wrapper img {
+  width: 100%;
+}
+
+.event--content--description--div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.event--content--description--div h3 {
+  font-size: var(--fs-ml);
+  margin: 0 0 20px 0;
+}
+
+.event--content--description--main {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 0 0 30px 0;
+}
+
+.event--content--description--main > * {
+  font-size: var(--fs-xs);
+}
+
+.event--content--description--actions--div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.event--content--description--ticket--price {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.event--content--description--ticket--price h4 {
+  font-size: var(--fs-ml);
+  letter-spacing: -1px;
+}
+
+.event--content--description--ticket--price h5 {
+  font-size: var(--fs-ml);
+  letter-spacing: -1px;
+  color: var(--clr-lightpink);
+}
+
+.event--content--description--buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.event--content--description--buttons input {
+  font-size: var(--fs-xs);
+  width: 80px;
+  height: 30px;
+  text-align: center;
+}
+
+.event--content--description--buttons button {
+  color: var(--clr-white);
+  background-color: var(--clr-black);
+  border-radius: 20px;
+  font-size: var(--fs-xs);
+  padding: 6px 29px;
+  border: none;
+}
+
+.event--related--acts--wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin: 50px 0 5px 0;
+}
+
+.event--related--acts--wrapper h3 {
+  font-size: var(--fs-ml);
+}
+
+.event--related--acts--div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 55px;
+}

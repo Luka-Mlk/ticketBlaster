@@ -28,6 +28,10 @@
   letter-spacing: -1.5px;
 }
 
+.create--event--button {
+  border: none;
+}
+
 .user--component--heading--div :nth-child(2) {
   padding: 0 0;
   background-color: var(--clr-lightpink);

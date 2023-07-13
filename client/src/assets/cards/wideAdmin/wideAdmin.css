@@ -1,6 +1,14 @@
+.wide--event--admin--card--parent {
+  display: flex;
+  flex-direction: column;
+}
+
+.wide--event--admin--card--parent hr {
+  margin: 40px 0;
+}
+
 .wide--event--admin--card {
   height: 115px;
-  margin: 0 0 40px 0;
   display: flex;
   align-items: center;
   gap: 50px;
@@ -79,7 +87,67 @@
   font-size: var(--fs-xs);
   font-weight: var(--fw-r);
   background-color: var(--clr-black);
+  color: var(--clr-white);
+  border: none;
   text-align: center;
   border-radius: 20px;
   padding: 12.5px 25.5px;
+}
+
+.wide--event--admin--description--values--action:hover {
+  cursor: pointer;
+}
+
+.are--you--sure--delete--post {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 280px;
+  width: 740px;
+  background-color: var(--clr-white);
+  box-shadow: 0 0 50px hsla(0, 0%, 0%, 0.452);
+  border-radius: 20px;
+  padding: 30px 45px;
+  letter-spacing: -1px;
+}
+
+.are--you--sure--delete--post--subdiv {
+  width: 100%;
+}
+
+.are--you--sure--delete--post--subdiv h2 {
+  margin: 0 0 30px 0;
+  font-size: var(--fs-lm);
+  font-weight: var(--fw-lb);
+}
+
+.are--you--sure--delete--post--subdiv p {
+  font-size: var(--fs-s);
+}
+
+.are--you--sure--delete--post--actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cancel--event--actions {
+  background-color: var(--clr-white);
+  border: 1px solid var(--clr-black);
+  border-radius: 20px;
+  color: var(--clr-black);
+  padding: 11px 40.5px;
+}
+
+.del--event--actions {
+  background-color: var(--clr-black);
+  border: none;
+  border-radius: 20px;
+  color: var(--clr-white);
+  padding: 11px 40.5px;
 }

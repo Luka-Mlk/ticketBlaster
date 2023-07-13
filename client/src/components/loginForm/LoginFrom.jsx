@@ -13,7 +13,7 @@ function LoginForm() {
         <Link>Forgot Password?</Link>
         <Link>Log In</Link>
       </div>
-      <Link>Dont have an account?</Link>
+      <Link to="/register">Dont have an account?</Link>
     </form>
   );
 }
