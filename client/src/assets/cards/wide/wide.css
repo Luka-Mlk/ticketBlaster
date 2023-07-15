@@ -1,3 +1,7 @@
+.wide--event--card--parent hr {
+  margin: 40px 0;
+}
+
 .wide--event--card {
   height: 115px;
   margin: 0 0 40px 0;

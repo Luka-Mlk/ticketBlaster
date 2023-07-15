@@ -106,7 +106,7 @@
   text-align: center;
 }
 
-.event--content--description--buttons button {
+.event--content--description--buttons--add--to--cart {
   color: var(--clr-white);
   background-color: var(--clr-black);
   border-radius: 20px;

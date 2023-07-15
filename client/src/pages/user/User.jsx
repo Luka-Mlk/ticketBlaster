@@ -7,6 +7,7 @@ import Users from "../../components/usersAdmin/Users";
 import TicketHistory from "../../components/ticketHistory/TicketHistory";
 import UserDetails from "../../components/userDetails/UserDetails";
 import Footer from "../../components/footer/Footer";
+import CreateEvent from "../../components/createEvent/CreateEvent";
 
 import "../../assets/userPage/userPage.css";
 // load one component that within itself contains another dynamicaly changing component depending on what button is clicked
@@ -16,6 +17,15 @@ function User() {
     Users,
     TicketHistory,
     UserDetails,
+    CreateEvent,
+  };
+
+  const headerMap = {
+    Events: "Events",
+    Users: "Users",
+    TicketHistory: "Ticket History",
+    UserDetails: "User Details",
+    CreateEvent: "Events",
   };
 
   const [activeComponent, setActiveComponent] = useState("UserDetails");
@@ -25,6 +35,7 @@ function User() {
   };
 
   const ActiveComponent = componentMap[activeComponent];
+  const headerValue = headerMap[activeComponent];
 
   return (
     <div className="user--page">
@@ -32,9 +43,14 @@ function User() {
       <div className="user--component--wrapper">
         <div className="user--component--heading">
           <div className="user--component--heading--div">
-            <h2>{activeComponent}</h2>
+            <h2>{headerValue}</h2>
             {activeComponent === "Events" ? (
-              <button className="create--event--button">Create Event</button>
+              <button
+                onClick={() => handleComponentChange("CreateEvent")}
+                className="create--event--button"
+              >
+                Create Event
+              </button>
             ) : (
               ""
             )}

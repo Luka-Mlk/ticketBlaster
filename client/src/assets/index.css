@@ -70,6 +70,10 @@ button {
   border: none;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 /* HEADER TEXT ABOVE EVENTS */
 .event--list--descriptors {
   font-size: var(--fs-lm);

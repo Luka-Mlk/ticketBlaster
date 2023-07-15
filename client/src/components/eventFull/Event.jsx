@@ -5,6 +5,7 @@ import imgPath from "../../assets/img/xzibit.jpg";
 import "../../assets/eventFull/eventFull.css";
 import NarrowCard from "../cards/NarrowCard";
 import Footer from "../footer/Footer";
+import { Link } from "react-router-dom";
 function Event() {
   return (
     <div className="event--component">
@@ -44,7 +45,12 @@ function Event() {
               </div>
               <div className="event--content--description--buttons">
                 <input type="number" placeholder="1" />
-                <button>Add to cart</button>
+                <Link
+                  to="/cart"
+                  className="event--content--description--buttons--add--to--cart"
+                >
+                  Add to cart
+                </Link>
               </div>
             </div>
           </div>

@@ -28,8 +28,8 @@
   letter-spacing: -1.5px;
 }
 
-.create--event--button {
-  border: none;
+.create--event--button:hover {
+  cursor: pointer;
 }
 
 .user--component--heading--div :nth-child(2) {
