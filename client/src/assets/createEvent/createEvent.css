@@ -24,6 +24,7 @@ select {
   border-radius: 20px;
   padding: 7px 18px;
   color: var(--clr--black);
+  background-color: var(--clr--white);
 }
 
 .create--event--en--c--d--input--field select:focus {

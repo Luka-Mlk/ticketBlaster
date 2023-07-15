@@ -9,7 +9,7 @@
 
 .register--form label {
   font-size: var(--fs-m);
-  font-weight: var(--fw-b);
+  font-weight: var(--fw-lb);
   margin: 0 0 15px 0;
 }
 
@@ -36,6 +36,7 @@
   font-size: var(--fs-s);
   font-weight: var(--fw-b);
   background-color: var(--clr-lightpink);
+  color: var(--clr-white);
   border-radius: 20px;
 }
 
