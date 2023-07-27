@@ -70,6 +70,10 @@ button {
   border: none;
 }
 
+select {
+  appearance: none;
+}
+
 button:hover {
   cursor: pointer;
 }

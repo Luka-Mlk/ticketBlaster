@@ -1,0 +1,52 @@
+.narror--vertical--card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.narrow--vertical--img--wrapper {
+  width: 200px;
+  height: 153px;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.narrow--vertical--img--wrapper img {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.narrow--vertcal--content--and--actions {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.narrow--verticall--content {
+  letter-spacing: -1px;
+}
+
+.narrow--verticall--content h3 {
+  font-size: var(--fs-ml);
+  font-weight: var(--fw-b);
+}
+
+.narrow--verticall--content h4 {
+  font-size: var(--fs-m);
+  font-weight: var(--fw-lb);
+  color: var(--clr-lightpink);
+}
+
+.narrow--verciall--content h5 {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-lb);
+}
+
+.narrow--vertcal--content--and--actions button {
+  background-color: var(--clr-black);
+  color: var(--clr-white);
+  border-radius: 20px;
+  padding: 7px 35.5px;
+}

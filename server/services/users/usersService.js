@@ -24,6 +24,11 @@ api.use(
   })
 );
 
+// {
+// "email": "luka.milik1@gmail.com",
+// "password": "Luka123"
+// }
+
 api.post("/api/user/register", user.register);
 api.post("/api/user/login", user.login);
 api.patch("/api/user/reset-password", user.resetPass);

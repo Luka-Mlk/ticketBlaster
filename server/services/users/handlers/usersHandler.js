@@ -8,10 +8,10 @@ const register = async (req, res) => {
   try {
     const acc = await user.getUserByEmail(req.body.email);
     if (acc) {
-      throw {
-        code: 400,
+      return res.status(400).json({
+        status: "failed",
         error: "Account with this email already exists",
-      };
+      });
     }
     req.body.password = bcrypt.hashSync(req.body.password);
     const newAcc = await user.create({
@@ -40,16 +40,16 @@ const login = async (req, res) => {
   try {
     const acc = await user.getUserByEmail(req.body.email);
     if (!acc) {
-      throw {
-        code: 404,
+      return res.status(400).json({
+        status: "failed",
         error: "Account not found",
-      };
+      });
     }
     if (!bcrypt.compareSync(req.body.password, acc.password)) {
-      throw {
-        code: 400,
+      return res.status(400).json({
+        status: "failed",
         error: "Wrong password",
-      };
+      });
     }
     const payload = {
       fullName: acc.fullName,

@@ -43,10 +43,14 @@
   border-radius: 20px;
 }
 
-.login--form :nth-child(6) {
+.dont--have--acc {
   color: var(--clr-black);
   text-align: center;
   padding: 9.5px 0;
   border-radius: 20px;
   border: 2px solid var(--clr-lightpink);
+}
+
+.error-message {
+  color: red;
 }

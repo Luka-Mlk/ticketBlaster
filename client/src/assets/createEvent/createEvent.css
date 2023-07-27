@@ -35,3 +35,130 @@ select {
   border-radius: 20px;
   margin: 10px 0 0 0;
 }
+
+.create--event--u-ed--tp {
+  display: flex;
+  gap: 35px;
+  margin: 30px 0 0 0;
+}
+
+.create--event--art {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 357px;
+}
+
+.create--event--art > * {
+  width: 100%;
+}
+
+.create--event--upload--art--button {
+  border-radius: 20px;
+  color: var(--clr-white);
+  background-color: var(--clr-black);
+  padding: 11.5px 0px;
+}
+
+.create--event--upload--art {
+  display: none;
+}
+
+.upload--img--wrapper {
+  border-radius: 20px;
+  width: 100%;
+  max-height: 211px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.upload--img--wrapper {
+  cursor: pointer;
+}
+
+.upload--img--wrapper > * {
+  width: 100%;
+}
+
+.file--input--fake--button {
+  height: 211px;
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  border: 1px solid var(--clr-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create--event--ed--tp {
+  display: flex;
+  flex-direction: column;
+}
+
+.create--event--ed--tp textarea {
+  margin: 15px 0 0 0;
+  width: 808px;
+  height: 140px;
+  border-radius: 20px;
+  resize: none;
+  padding: 15px;
+}
+
+.create--event--tp {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 22px 0 0 0;
+}
+
+.create--event--tp input {
+  width: 357px;
+  height: 42px;
+}
+
+.related--events--create {
+  margin: 40px 0 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.related--events--create label {
+  margin: 0 0 15px 0;
+}
+
+.related--events--create--inputs {
+  display: flex;
+  gap: 20px;
+}
+
+.related--events--create--inputs select {
+  border-radius: 20px;
+  border: 1px solid var(--clr-black);
+  width: 357px;
+  height: 42px;
+  pad: 5px;
+}
+
+.related--events--create--inputs button {
+  border-radius: 20px;
+  color: var(--clr-white);
+  background-color: var(--clr-black);
+  padding: 0 44px;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  /* filter: invert(1); */
+  display: none;
+}
+
+.related--events--narrow--parent {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 44px 0 0 0;
+}

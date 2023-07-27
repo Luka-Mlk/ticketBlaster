@@ -1,8 +1,15 @@
 const event = require("../../../pkg/models/event/event.js");
 const user = require("../../../pkg/models/user/user.js");
+const storage = require("../../upload/handlers/storageHandler.js");
 
 const createEvent = async (req, res) => {
   try {
+    if (!req.auth) {
+      return res.status(400).json({
+        status: "failed",
+        error: "Must be logged in to create event",
+      });
+    }
     if (req.auth.admin) {
       // if user is admin allow event creation
       const newEvent = await event.create({
@@ -205,8 +212,16 @@ const updateEvent = async (req, res) => {
 
 const removeEvent = async (req, res) => {
   try {
+    if (!req.auth) {
+      return res.status(400).json({
+        status: "failed",
+        error: "Must be logged in to remove event",
+      });
+    }
     if (req.auth.admin) {
       // if user is admin allow deletion
+      const selectedEvent = await event.getOne(req.params.id);
+      storage.removeEvent(selectedEvent.imagePath);
       const removedEvent = event.remove(req.params.id);
       // return res.status(204).send(removedEvent);
       return res.status(204).json({

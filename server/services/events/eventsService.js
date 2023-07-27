@@ -1,6 +1,5 @@
 const express = require("express");
 const { expressjwt: jwt } = require("express-jwt");
-
 const config = require("../../pkg/config/config");
 const db = require("../../pkg/db/database");
 const event = require("../events/handlers/eventsHandler");
@@ -8,7 +7,6 @@ const event = require("../events/handlers/eventsHandler");
 db.connect();
 
 const api = express();
-
 api.use(express.json());
 api.use(express.urlencoded({ extended: true }));
 api.use(
@@ -17,10 +15,9 @@ api.use(
     algorithms: ["HS256"],
   }).unless({
     path: [
-      "/api/event/",
+      /^\/api\/event\/$/,
       /^\/api\/event\/category\/.*/,
-      /^\/api\/event\/content\/.*/,
-      /^\/api\/event\/.*/,
+      /^\/api\/event\/\w+$/,
     ],
   })
 );

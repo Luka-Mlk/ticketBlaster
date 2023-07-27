@@ -12,7 +12,7 @@ const upload = async (req, res) => {
     "image/gif",
   ];
   const maxFileSize = 3145728; // 3MB
-  if (maxFileSize < req.files.image.mimetype) {
+  if (maxFileSize < req.files.image.size) {
     // return res.status(400).send("File size limit exceeded");
     return res.status(400).json({
       status: "failed",
@@ -52,6 +52,57 @@ const upload = async (req, res) => {
       status: "success",
       // file_path: filePath,
       file_name: fileName,
+    });
+  });
+};
+
+const uploadEvent = async (req, res) => {
+  if (!req.auth.admin) {
+    return res.status(400).json({
+      status: "failed",
+      error: "Incorrect permissions",
+    });
+  }
+  const fileTypes = [
+    "image/png",
+    "image/jpg",
+    "image/pjpeg",
+    "image/jpeg",
+    "image/gif",
+  ];
+  const maxFileSize = 3145728; // 3MB
+  if (maxFileSize < req.files.image.size) {
+    // return res.status(400).send("File size limit exceeded");
+    return res.status(400).json({
+      status: "failed",
+      error: "File size limit exceeded",
+    });
+  }
+
+  if (!fileTypes.includes(req.files.image.mimetype)) {
+    // return res.status(400).send("Bad request");
+    return res.status(400).json({
+      status: "failed",
+      error: "Incorrect image format",
+    });
+  }
+  const name = `${strings.random(9)}_${req.files.image.name}`;
+  const path = `${__dirname}/../user_uploads/event_images/${name}`;
+
+  req.files.image.mv(path, (err) => {
+    if (err) {
+      console.log(err);
+      // return res.status(500).send("Internal server error");
+      return res.status(500).json({
+        status: "failed",
+        error: "Internal server error",
+      });
+    }
+    // return res.status(200).send({ file_name: fileName });
+    return res.status(200).json({
+      status: "success",
+      // file_path: filePath,
+      file_name: name,
     });
   });
 };
@@ -104,8 +155,15 @@ const remove = async (req, res) => {
   });
 };
 
+const removeEvent = async (name) => {
+  const path = `${__dirname}/../user_uploads/event_images/${name}`;
+  fs.unlinkSync(path);
+};
+
 module.exports = {
   upload,
+  uploadEvent,
   read,
   remove,
+  removeEvent,
 };
