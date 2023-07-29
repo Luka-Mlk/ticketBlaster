@@ -13,6 +13,20 @@ const register = async (req, res) => {
         error: "Account with this email already exists",
       });
     }
+    const fullNameRegEx = /^[a-zA-Z]{2,} [a-zA-Z]{2,}$/;
+    const emailRegEx = /^[a-z0-9\.-]+@[a-z\.-]+\.[a-z]{2,}$/;
+    const passwordRegEx = /^(?=.*[!@#$%^&*])(?=.*[a-zA-z]).{8,}/;
+    if (
+      req.body.password !== req.body.reWrittenPassword ||
+      !passwordRegEx.test(req.body.password) ||
+      !emailRegEx.test(req.body.email) ||
+      !fullNameRegEx.test(req.body.fullName)
+    ) {
+      return res.status(400).json({
+        status: "failed",
+        error: "Bad request",
+      });
+    }
     req.body.password = bcrypt.hashSync(req.body.password);
     const newAcc = await user.create({
       imagePath: req.body.imagePath || "",
@@ -100,13 +114,36 @@ const updateUserCred = async (req, res) => {
 
     const usr = await user.getUserById(req.auth.id);
 
-    if (req.body.newFullName || req.body.newEmail) {
-      const newFullName =
-        req.body.newFullName !== "" ? req.body.newFullName : usr.fullName;
-      // const newName = req.body.newName;
-      const newEmail = req.body.newEmail !== "" ? req.body.newEmail : usr.email;
+    if (req.body.fullName || req.body.email || req.body.imagePath) {
+      let newFullName = usr.fullName;
+      let newEmail = usr.email;
+      let newImg = usr.imagePath;
+      if (req.body.fullName !== "") {
+        const fullNameRegEx = /^[a-zA-Z]{2,} [a-zA-Z]{2,}$/;
+        if (!fullNameRegEx.test(req.body.fullName)) {
+          return res.status(400).json({
+            status: "failed",
+            error: "Must contain full name",
+          });
+        }
+        newFullName = req.body.fullName;
+      }
+      if (req.body.email !== "") {
+        const emailRegEx = /^[a-z0-9\.-]+@[a-z\.-]+\.[a-z]{2,}$/;
+        if (!emailRegEx.test(req.body.email)) {
+          return res.status(400).json({
+            status: "failed",
+            error: "Must contain valid email address",
+          });
+        }
+        newEmail = req.body.email;
+      }
+      if (req.body.imagePath !== "") {
+        newImg = req.body.imagePath;
+      }
       usr.fullName = newFullName;
       usr.email = newEmail;
+      usr.imagePath = newImg;
     }
 
     await user.updateUser(req.auth.id, usr);

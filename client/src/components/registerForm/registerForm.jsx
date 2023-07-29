@@ -1,94 +1,91 @@
-import React, { useRef, useState, useSyncExternalStore } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import "../../assets/registerForm/registerForm.css";
 function RegisterForm() {
   const navigate = useNavigate();
-  const [fullName, setFullName] = useState(undefined);
-  const [email, setEmail] = useState(undefined);
-  const [password, setPassword] = useState(undefined);
+  const [formData, setFormData] = useState({});
+  // validate backend values
 
-  // const fullNameRegEx = /^[a-zA-Z]+ [a-zA-Z]+$/;
-  const fullNameRegEx = /^[a-zA-Z]{2,} [a-zA-Z]{2,}$/;
-  const emailRegEx = /^[a-z0-9\.-]+@[a-z\.-]+\.[a-z]{2,}$/;
-  const passwordRegEx = /^(?=.*[!@#$%^&*])(?=.*[a-zA-z]).{8,}/;
+  const testName = (name) => {
+    const fullNameRegEx = /^[a-zA-Z]{2,} [a-zA-Z]{2,}$/;
+    if (!fullNameRegEx.test(name)) {
+      return "Needs full name, at least two characters";
+    } else {
+      return "";
+    }
+  };
+
+  const testMail = (mail) => {
+    const emailRegEx = /^[a-z0-9\.-]+@[a-z\.-]+\.[a-z]{2,}$/;
+    if (!emailRegEx.test(mail)) {
+      return "Must be valid email";
+    } else {
+      return "";
+    }
+  };
+
+  const testPass = (pass) => {
+    const passwordRegEx = /^(?=.*[!@#$%^&*])(?=.*[a-zA-z]).{8,}/;
+    if (!passwordRegEx.test(pass)) {
+      return "Password must contain special character, number, lowercase and uppercase letters and 8 characters long";
+    } else {
+      return "";
+    }
+  };
+
+  const testPass2 = (pass2) => {
+    if (pass2 !== formData.password) {
+      return "Passwords must match";
+    } else {
+      return "";
+    }
+  };
+
+  const testMap = {
+    fullName: testName,
+    email: testMail,
+    password: testPass,
+    reWrittenPassword: testPass2,
+  };
+
+  const objectIsEmpty = (obj) => {
+    const valueArr = Object.values(obj);
+    return valueArr.every((value) => value === "");
+  };
 
   const [errors, setErrors] = useState({});
   const [errorSentByServer, setErrorSentByServer] = useState("");
 
   const handleInputChange = (e) => {
-    // console.log(errors);
+    // CALL ERROR ON SUBMIT-VAL
     const { name, value } = e.target;
-    if (name === "fullName") {
-      if (!fullNameRegEx.test(value)) {
-        setErrors((previErr) => ({
-          ...previErr,
-          fullName: "Field requires first and last name",
-        }));
-      } else {
-        setErrors((previErr) => ({
-          ...previErr,
-          fullName: "",
-        }));
-      }
-    } else if (name === "email") {
-      if (!emailRegEx.test(value)) {
-        setErrors((prevErr) => ({
-          ...prevErr,
-          email: "Field required valid email",
-        }));
-      } else {
-        setErrors((prevErr) => ({
-          ...prevErr,
-          email: "",
-        }));
-      }
-    } else if (name === "password") {
-      if (!passwordRegEx.test(value)) {
-        setErrors((prevErr) => ({
-          ...prevErr,
-          password:
-            "Password must contain special character, number, lowercase and uppercase letters",
-        }));
-      } else if (value.length < 8) {
-        setErrors((prevErr) => ({
-          ...prevErr,
-          password: "Password must be at least 8 characters long",
-        }));
-      } else {
-        setErrors((prevErr) => ({
-          ...prevErr,
-          password: "",
-        }));
-      }
-    } else if (name === "reWrittenPassword") {
-      if (value !== password) {
-        setErrors((prevErr) => ({
-          ...prevErr,
-          reWrittenPassword: "Passwords must match",
-        }));
-      } else {
-        setErrors((prevErr) => ({
-          ...prevErr,
-          reWrittenPassword: "",
-        }));
-      }
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const genError = () => {
+    const obj = {};
+    for (const field in formData) {
+      const fieldVal = formData[field];
+      obj[field] = testMap[field](fieldVal);
     }
+    return obj;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(fullName);
-    // console.log(email);
-    // console.log(password);
-    if (!areAllFieldsEmpty(errors)) {
-      return alert("Register form has errors, cannot proceed");
+    const errorObj = genError();
+    setErrors(errorObj);
+
+    if (!objectIsEmpty(errorObj)) {
+      return;
     }
-    const formData = {
-      fullName: fullName,
-      email: email,
-      password: password,
-    };
+
     const response = await fetch("http://localhost:10000/api/user/register", {
       method: "POST",
       headers: {
@@ -104,9 +101,9 @@ function RegisterForm() {
     else if (data.status === "failed") setErrorSentByServer(data.error);
   };
 
-  function areAllFieldsEmpty(obj) {
-    return Object.values(obj).every((val) => val === "");
-  }
+  // function areAllFieldsEmpty(obj) {
+  //   return Object.values(obj).every((val) => val !== "");
+  // }
 
   return (
     <form
@@ -119,7 +116,6 @@ function RegisterForm() {
         type="text"
         name="fullName"
         onChange={(e) => {
-          setFullName(e.target.value);
           handleInputChange(e);
         }}
         required
@@ -132,7 +128,6 @@ function RegisterForm() {
         type="text"
         name="email"
         onChange={(e) => {
-          setEmail(e.target.value);
           handleInputChange(e);
         }}
         required
@@ -143,7 +138,6 @@ function RegisterForm() {
         type="password"
         name="password"
         onChange={(e) => {
-          setPassword(e.target.value);
           handleInputChange(e);
         }}
         required

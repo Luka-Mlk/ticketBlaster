@@ -4,6 +4,7 @@ const event = require("../../../pkg/models/event/event");
 const path = require("path");
 
 const upload = async (req, res) => {
+  console.log(req.files.image);
   const fileTypes = [
     "image/png",
     "image/jpg",
@@ -29,7 +30,7 @@ const upload = async (req, res) => {
   }
 
   const userDir = `user_${req.auth.id}`;
-  const userDirPath = `${__dirname}/../user_uploads/${userDir}`;
+  const userDirPath = `${__dirname}/../user_uploads/users/${userDir}`;
 
   if (!fs.existsSync(userDirPath)) {
     fs.mkdirSync(userDirPath);

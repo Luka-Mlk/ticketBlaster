@@ -9,15 +9,28 @@ import HeaderLoggedIn from "../../components/header/HeaderLoggedIn";
 function Home() {
   useEffect(() => {
     getToken();
+    fetchData();
   }, []);
   const [authToken, setAuthToken] = useState("");
 
   const getToken = () => {
     setAuthToken(localStorage.getItem("JWT"));
+    console.log("Token");
   };
+
+  const fetchData = async () => {
+    const response = await fetch("http://localhost:10000/api/event", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+  };
+
   return (
     <main>
-      {/* <Header /> */}
       {authToken ? <HeaderLoggedIn /> : <Header />}
       <Hero />
       <div className="events--wrapper">

@@ -1,6 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import jwt_decode from "jwt-decode";
 import HeaderLoggedIn from "../../components/header/HeaderLoggedIn";
 import UserDetails from "../../components/userDetails/UserDetails";
 import Footer from "../../components/footer/Footer";
@@ -8,6 +9,27 @@ import Footer from "../../components/footer/Footer";
 import "../../assets/userPage/userPage.css";
 // load one component that within itself contains another dynamicaly changing component depending on what button is clicked
 function User() {
+  const [authToken, setAuthToken] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getToken();
+  }, [authToken]);
+
+  const getToken = () => {
+    if (!localStorage.getItem("JWT")) {
+      return navigate("/");
+    }
+    setAuthToken(localStorage.getItem("JWT"));
+  };
+  if (!localStorage.getItem("JWT")) return navigate("/");
+  const token = localStorage.getItem("JWT");
+  const decodedToken = jwt_decode(token);
+
+  const handleLogOut = () => {
+    localStorage.clear("JWT");
+    navigate("/");
+  };
   // const componentMap = {
   //   Events,
   //   Users,
@@ -52,20 +74,24 @@ function User() {
             )} */}
           </div>
           <div className="user--component--navigation">
-            <Link
-              // id={activeComponent === "Events" ? "active" : ""}
-              // onClick={() => handleComponentChange("Events")}
-              to="/events"
-            >
-              Events
-            </Link>
-            <Link
-              // id={activeComponent === "Users" ? "active" : ""}
-              // onClick={() => handleComponentChange("Users")}
-              to="/manage-users"
-            >
-              Users
-            </Link>
+            {decodedToken.admin && (
+              <Link
+                // id={activeComponent === "Events" ? "active" : ""}
+                // onClick={() => handleComponentChange("Events")}
+                to="/events"
+              >
+                Events
+              </Link>
+            )}
+            {decodedToken.admin && (
+              <Link
+                // id={activeComponent === "Users" ? "active" : ""}
+                // onClick={() => handleComponentChange("Users")}
+                to="/manage-users"
+              >
+                Users
+              </Link>
+            )}
             <Link
               // id={activeComponent === "TicketHistory" ? "active" : ""}
               // onClick={() => handleComponentChange("TicketHistory")}
@@ -81,7 +107,7 @@ function User() {
             >
               User Details
             </Link>
-            <Link>Log Out</Link>
+            <button onClick={handleLogOut}>Log Out</button>
           </div>
         </div>
         {/* {ActiveComponent && <ActiveComponent />} */}

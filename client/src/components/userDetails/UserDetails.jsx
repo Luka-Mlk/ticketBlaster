@@ -5,6 +5,127 @@ import { useState } from "react";
 import "../../assets/userDetails/userDetails.css";
 import imgPath from "../../assets/img/portrait.jpg";
 function UserDetails() {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    imagePath: "",
+  });
+  const [imgSrc, setImgSrc] = useState("");
+  const [errors, setErrors] = useState({});
+  const [serverErrors, setServerErrors] = useState("");
+  const [file, setFile] = useState({});
+  const [succ, setSucc] = useState(false);
+
+  const testName = (name) => {
+    if (name === "") return "";
+    const fullNameRegEx = /^[a-zA-Z]{2,} [a-zA-Z]{2,}$/;
+    if (!fullNameRegEx.test(name)) {
+      return "Needs full name, at least two characters";
+    } else {
+      return "";
+    }
+  };
+
+  const testMail = (mail) => {
+    if (mail === "") return "";
+    const emailRegEx = /^[a-z0-9\.-]+@[a-z\.-]+\.[a-z]{2,}$/;
+    if (!emailRegEx.test(mail)) {
+      return "Must be valid email";
+    } else {
+      return "";
+    }
+  };
+
+  const testMap = {
+    fullName: testName,
+    email: testMail,
+    imagePath: () => "",
+  };
+
+  const objectIsEmpty = (obj) => {
+    const valueArr = Object.values(obj);
+    return valueArr.every((value) => value === "");
+  };
+
+  const genError = () => {
+    const obj = {};
+    for (const field in formData) {
+      const fieldVal = formData[field];
+      console.log(field);
+      console.log(fieldVal);
+      obj[field] = testMap[field](fieldVal);
+    }
+    return obj;
+  };
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleUpload = async (e) => {
+    const file = e.target.files[0];
+    setFile(file);
+    console.log(file);
+    setImgSrc(URL.createObjectURL(file));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let formDataSender = formData;
+
+    const errObj = genError();
+    setErrors(errObj);
+    if (!objectIsEmpty(errObj)) {
+      return;
+    }
+
+    if (file.name) {
+      const imgFormData = new FormData();
+      imgFormData.set("image", file);
+
+      const imgResponse = await fetch(
+        "http://localhost:10000/api/storage/upload-profile",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("JWT")}`,
+          },
+          body: imgFormData,
+        }
+      );
+      const imgName = await imgResponse.json();
+
+      if (imgName.status === "success") {
+        formDataSender = {
+          ...formDataSender,
+          ["imagePath"]: imgName.file_name,
+        };
+      }
+    }
+    if (objectIsEmpty(formDataSender)) {
+      return;
+    }
+    const response = await fetch(
+      "http://localhost:10000/api/user/change-credentials",
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("JWT")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataSender),
+      }
+    );
+    const data = await response.json();
+    setFile({});
+    console.log(data);
+    if (data.status === "success") {
+      return setSucc(true);
+    } else if (data.status === "failed") setServerErrors(data.error);
+  };
+
   const [resetPassVisibility, setVisibility] = useState(false);
 
   const toggleVis = (e) => {
@@ -13,28 +134,50 @@ function UserDetails() {
   };
 
   return (
-    <form className="user--details--form" action="">
+    <form className="user--details--form" action="" onSubmit={handleSubmit}>
       <div className="user--details--img--and--name--div">
         <div className="user--details--img--wrapper">
-          <img src={imgPath} alt="person image" />
+          {imgSrc ? (
+            <img src={imgSrc} alt="avatar" />
+          ) : (
+            <img src={imgPath} alt="person image" />
+          )}
         </div>
         <div className="user--details--full--name--div">
           <label htmlFor="">Full Name</label>
-          <input type="text" name="" id="" />
+          <input type="text" name="fullName" id="" onChange={handleInput} />
+          {errors.fullName && (
+            <div className="error-message">{errors.fullName}</div>
+          )}
         </div>
       </div>
       <div className="user--details--upload--avatar--and--email">
-        <button className="user--details--upload--avatar--button">
+        <label
+          htmlFor="avatar"
+          className="user--details--upload--avatar--button"
+        >
           Upload Avatar
-        </button>
+        </label>
+        <input
+          name="avatar"
+          id="avatar"
+          type="file"
+          className="hidden"
+          onChange={handleUpload}
+        />
         <div className="user--details--email--div">
           <label htmlFor="">Email</label>
-          <input type="text" />
+          <input type="text" name="email" onChange={handleInput} />
+          {errors.email && <div className="error-message">{errors.email}</div>}
         </div>
       </div>
       <div className="user--details--submit--button">
         <button>Submit</button>
       </div>
+      {serverErrors && <div className="error-message">{serverErrors}</div>}
+      {succ && (
+        <div className="succ-message">Successfully changed credentials</div>
+      )}
       <div className="user--details--password--change--div">
         <h3>Password</h3>
         <button

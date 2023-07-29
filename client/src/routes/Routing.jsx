@@ -16,12 +16,12 @@ function Routing() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} /> {/*Done*/}
+      <Route path="/register" element={<Register />} /> {/*Done*/}
       <Route path="/events/:catergory" element={<ListAll />} />
+      <Route path="/event" element={<Event />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/user" element={<User />} />
-      <Route path="/event" element={<Event />} />
       <Route path="/ticket-history" element={<TicketHistoryPage />} />
       <Route path="/manage-users" element={<ManageUsers />} />
       <Route path="/events" element={<Events />} />

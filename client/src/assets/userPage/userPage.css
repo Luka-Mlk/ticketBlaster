@@ -50,8 +50,13 @@
   letter-spacing: -1px;
 }
 
-.user--component--navigation a {
+.user--component--navigation a,
+button {
   color: var(--clr-black);
+  background-color: transparent;
+  font-size: var(--fs-m);
+  font-weight: var(--fw-lb);
+  letter-spacing: -1px;
 }
 
 #active {

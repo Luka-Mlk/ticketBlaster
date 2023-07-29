@@ -12,7 +12,7 @@ function NarrowCardHistory() {
   const fetchQr = async () => {
     try {
       const response = await fetch(
-        `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Event`
+        `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=MojEvent`
       );
       const data = await response.blob();
       const imgUrl = URL.createObjectURL(data);

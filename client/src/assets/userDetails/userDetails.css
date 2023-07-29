@@ -41,7 +41,7 @@ button {
 }
 
 .user--details--img--wrapper img {
-  width: 150px;
+  width: 100px;
 }
 
 .user--details--full--name--div {
@@ -66,11 +66,15 @@ button {
 }
 
 .user--details--upload--avatar--button {
-  padding: 9px 19.5px;
+  padding: 9px 17.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid var(--clr-black);
   border-radius: 20px;
   background-color: transparent;
   color: var(--clr-lightpink);
+  font-size: var(--fs-s);
   letter-spacing: -1px;
   margin: 30px 0 0 0;
 }
@@ -166,4 +170,9 @@ button {
 
 .hidden {
   display: none;
+}
+
+.succ-message {
+  color: rgb(10, 148, 10);
+  padding: 10px;
 }
