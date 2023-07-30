@@ -9,20 +9,15 @@ import Footer from "../../components/footer/Footer";
 import "../../assets/userPage/userPage.css";
 // load one component that within itself contains another dynamicaly changing component depending on what button is clicked
 function User() {
-  const [authToken, setAuthToken] = useState("");
+  // const [authToken, setAuthToken] = useState("");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    getToken();
-  }, [authToken]);
 
   const getToken = () => {
     if (!localStorage.getItem("JWT")) {
       return navigate("/");
     }
-    setAuthToken(localStorage.getItem("JWT"));
+    // setAuthToken(localStorage.getItem("JWT"));
   };
-  if (!localStorage.getItem("JWT")) return navigate("/");
   const token = localStorage.getItem("JWT");
   const decodedToken = jwt_decode(token);
 
@@ -55,6 +50,10 @@ function User() {
   // const ActiveComponent = componentMap[activeComponent];
   // const headerValue = headerMap[activeComponent];
 
+  useEffect(() => {
+    getToken();
+    if (!localStorage.getItem("JWT")) return navigate("/");
+  }, []);
   return (
     <div className="user--page">
       <HeaderLoggedIn />

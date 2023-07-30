@@ -59,9 +59,10 @@ const getUserByEmail = async (email) => {
   }
 };
 
-const getUserById = async (id) => {
+const getUserById = async (_id) => {
   try {
-    return await User.findOne({ _id: id });
+    console.log(_id);
+    return await User.findOne({ _id });
   } catch (err) {
     throw err;
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -15,6 +15,27 @@ function UserDetails() {
   const [serverErrors, setServerErrors] = useState("");
   const [file, setFile] = useState({});
   const [succ, setSucc] = useState(false);
+
+  const getImg = async () => {
+    try {
+      const response = await fetch("http://localhost:10000/api/storage/get", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("JWT")}`,
+        },
+      });
+      if (!response.ok) {
+        const data = await response.json();
+        console.log(data);
+        return;
+      }
+      const img = await response.blob();
+      setImgSrc(URL.createObjectURL(img));
+      console.log(img);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const testName = (name) => {
     if (name === "") return "";
@@ -36,6 +57,23 @@ function UserDetails() {
     }
   };
 
+  const testPass = (pass) => {
+    const passwordRegEx = /^(?=.*[!@#$%^&*])(?=.*[a-zA-z]).{8,}/;
+    if (!passwordRegEx.test(pass)) {
+      return "Password must contain special character, number, lowercase and uppercase letters and 8 characters long";
+    } else {
+      return "";
+    }
+  };
+
+  const testPass2 = (pass2) => {
+    if (pass2 !== formData.password) {
+      return "Passwords must match";
+    } else {
+      return "";
+    }
+  };
+
   const testMap = {
     fullName: testName,
     email: testMail,
@@ -51,8 +89,8 @@ function UserDetails() {
     const obj = {};
     for (const field in formData) {
       const fieldVal = formData[field];
-      console.log(field);
-      console.log(fieldVal);
+      // console.log(field);
+      // console.log(fieldVal);
       obj[field] = testMap[field](fieldVal);
     }
     return obj;
@@ -66,7 +104,7 @@ function UserDetails() {
   const handleUpload = async (e) => {
     const file = e.target.files[0];
     setFile(file);
-    console.log(file);
+    // console.log(file);
     setImgSrc(URL.createObjectURL(file));
   };
 
@@ -133,6 +171,23 @@ function UserDetails() {
     setVisibility(!resetPassVisibility);
   };
 
+  useEffect(() => {
+    getImg();
+  }, []);
+
+  const [formDataPass, setFormDataPass] = useState({});
+  const [serverErrorPass, setServerErrorPass] = useState("");
+  const [errorPass, setErrorPass] = useState({});
+
+  const handlePassInput = (e) => {
+    const { name, value } = e.target;
+    setFormDataPass((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handlePassSubmit = () => {
+    console.log(formDataPass);
+  };
+
   return (
     <form className="user--details--form" action="" onSubmit={handleSubmit}>
       <div className="user--details--img--and--name--div">
@@ -192,15 +247,15 @@ function UserDetails() {
           <div className="user--details--retype--password">
             <div className="user--detials--initial--password--div">
               <label htmlFor="">Password</label>
-              <input type="text" />
+              <input type="password" name="pass" onChange={handlePassInput} />
             </div>
             <div className="user--details--re--type--password--div">
               <label htmlFor="">Re-type Password</label>
-              <input type="text" />
+              <input type="password" name="pass2" onChange={handlePassInput} />
             </div>
           </div>
           <div className="user--details--submit--password--button">
-            <button>Submit</button>
+            <button onClick={handlePassSubmit}>Submit</button>
           </div>
         </div>
       )}

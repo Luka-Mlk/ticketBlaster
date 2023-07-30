@@ -2,6 +2,7 @@ const fs = require("fs");
 const strings = require("../../../pkg/strings/strings");
 const event = require("../../../pkg/models/event/event");
 const path = require("path");
+const user = require("../../../pkg/models/user/user");
 
 const upload = async (req, res) => {
   console.log(req.files.image);
@@ -110,10 +111,17 @@ const uploadEvent = async (req, res) => {
 
 const read = async (req, res) => {
   const userDir = `user_${req.auth.id}`;
-  const userDirPath = `${__dirname}/../user_uploads/${userDir}`;
-
-  const fileName = req.params.fileName;
+  const userDirPath = `${__dirname}/../user_uploads/users/${userDir}`;
+  const usr = await user.getUserById(req.auth.id);
+  const fileName = usr.imagePath;
+  if (fileName === "") {
+    return res.status(400).json({
+      status: "failed",
+      error: "User had no profile picture",
+    });
+  }
   const filePath = `${userDirPath}/${fileName}`;
+  // console.log(filePath);
   if (!fs.existsSync(filePath)) {
     // return res.status(400).send("No such file in storage");
     return res.status(400).json({

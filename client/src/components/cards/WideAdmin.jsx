@@ -9,9 +9,11 @@ function WideAdmin() {
   return (
     <div className="wide--event--admin--card--parent">
       <div className="wide--event--admin--card">
-        <div className="wide--event--admin--image--wrapper">
+        {/* <div className="wide--event--admin--image--wrapper"> */}
+        <Link className="wide--event--admin--image--wrapper">
           <img src={imgPath} alt="event image" />
-        </div>
+        </Link>
+        {/* </div> */}
         <div className="wide--event--admin--description">
           <div className="wide--event--admin--description--text--wrapper">
             <div className="wide--event--admin--desctiption--1">
