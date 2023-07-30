@@ -60,7 +60,7 @@ function User() {
       <div className="user--component--wrapper">
         <div className="user--component--heading">
           <div className="user--component--heading--div">
-            <h2>UserDetails</h2>
+            <h2>User Details</h2>
             {/* {activeComponent === "Events" ? (
               <button
                 onClick={() => handleComponentChange("CreateEvent")}

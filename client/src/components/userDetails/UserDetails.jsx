@@ -67,8 +67,8 @@ function UserDetails() {
   };
 
   const testPass2 = (pass2) => {
-    if (pass2 !== formData.password) {
-      return "Passwords must match";
+    if (pass2 !== formDataPass.pass) {
+      return "Passwords do not match";
     } else {
       return "";
     }
@@ -177,19 +177,69 @@ function UserDetails() {
 
   const [formDataPass, setFormDataPass] = useState({});
   const [serverErrorPass, setServerErrorPass] = useState("");
+  const [succMsg, setSuccMsg] = useState("");
   const [errorPass, setErrorPass] = useState({});
+
+  const passwordTestMap = {
+    pass: testPass,
+    pass2: testPass2,
+  };
+
+  const genErrorPassword = () => {
+    const obj = {};
+    for (const field in formDataPass) {
+      const fieldVal = formDataPass[field];
+      // console.log(field);
+      // console.log(fieldVal);
+      obj[field] = passwordTestMap[field](fieldVal);
+    }
+    return obj;
+  };
 
   const handlePassInput = (e) => {
     const { name, value } = e.target;
     setFormDataPass((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handlePassSubmit = () => {
+  const handlePassSubmit = async (e) => {
+    e.preventDefault();
     console.log(formDataPass);
+
+    let formDataPassword = formDataPass;
+    console.log(formDataPassword);
+    const errObj = genErrorPassword(formDataPassword);
+    setErrorPass(errObj);
+    if (!objectIsEmpty(errObj)) {
+      return;
+    }
+
+    if (objectIsEmpty(formDataPassword)) {
+      return;
+    }
+
+    const response = await fetch(
+      "http://localhost:10000/api/user/reset-password",
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("JWT")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataPassword),
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+    if (data.status === "success") {
+      setVisibility(!resetPassVisibility);
+      setSuccMsg("Successfully changed password");
+    } else if (data.status === "failed") {
+      setServerErrorPass(data.error);
+    }
   };
 
   return (
-    <form className="user--details--form" action="" onSubmit={handleSubmit}>
+    <form className="user--details--form" action="">
       <div className="user--details--img--and--name--div">
         <div className="user--details--img--wrapper">
           {imgSrc ? (
@@ -227,7 +277,7 @@ function UserDetails() {
         </div>
       </div>
       <div className="user--details--submit--button">
-        <button>Submit</button>
+        <button onClick={handleSubmit}>Submit</button>
       </div>
       {serverErrors && <div className="error-message">{serverErrors}</div>}
       {succ && (
@@ -254,11 +304,21 @@ function UserDetails() {
               <input type="password" name="pass2" onChange={handlePassInput} />
             </div>
           </div>
+          {errorPass.pass && (
+            <div className="error-message">{errorPass.pass}</div>
+          )}
+          {errorPass.pass2 && (
+            <div className="error-message">{errorPass.pass2}</div>
+          )}
+          {serverErrorPass && (
+            <div className="error-message">{serverErrorPass}</div>
+          )}
           <div className="user--details--submit--password--button">
             <button onClick={handlePassSubmit}>Submit</button>
           </div>
         </div>
       )}
+      {succMsg && <div className="succ-message">{succMsg}</div>}
     </form>
   );
 }

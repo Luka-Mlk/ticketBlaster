@@ -174,25 +174,37 @@ const forgotPass = async (req, res) => {
 
 const resetPass = async (req, res) => {
   try {
-    const email = req.auth.email;
-    const oldPass = req.body.old_password;
-    const oldPassHash = bcrypt.hashSync(oldPass);
-    const acc = await user.getUserByEmail(email);
-    if (acc.password === oldPassHash) {
-      throw {
-        code: 400,
+    // const email = req.auth.email;
+    const id = req.auth.id;
+    const pass = req.body.pass;
+    const pass2 = req.body.pass2;
+    if (pass !== pass2) {
+      return res.status(400).json({
+        status: "failed",
+        error: "Passwords do not match",
+      });
+    }
+    const acc = await user.getUserById(id);
+    const passwordSameAsOld = bcrypt.compareSync(pass, acc.password);
+    console.log(passwordSameAsOld);
+    if (passwordSameAsOld) {
+      return res.status(400).json({
+        status: "failed",
         error: "Incorrect old password",
-      };
+      });
     }
-    const newPass = req.body.new_password;
-    const newPassHash = bcrypt.hashSync(newPass);
-    if (oldPassHash === newPassHash) {
-      throw {
-        code: 400,
-        error: "Old and new pasword cannot be the same",
-      };
-    }
-    const userPassChanged = await user.changePassword(acc.id, newPassHash);
+    const passHash = bcrypt.hashSync(pass);
+
+    // const newPass = req.body.new_password;
+    // const newPassHash = bcrypt.hashSync(newPass);
+    // if (oldPassHash === newPassHash) {
+    //   throw {
+    //     code: 400,
+    //     error: "Old and new pasword cannot be the same",
+    //   };
+    // }
+    // const userPassChanged = await user.changePassword(acc.id, newPassHash);
+    const userPassChanged = await user.changePassword(id, passHash);
     // return res.status(200).send(userPassChanged);
     return res.status(200).json({
       status: "success",
