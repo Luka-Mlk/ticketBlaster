@@ -5,7 +5,7 @@ const path = require("path");
 const user = require("../../../pkg/models/user/user");
 
 const upload = async (req, res) => {
-  console.log(req.files.image);
+  // console.log(req.files.image);
   const fileTypes = [
     "image/png",
     "image/jpg",
@@ -109,6 +109,27 @@ const uploadEvent = async (req, res) => {
   });
 };
 
+const readEvent = async (req, res) => {
+  const dir = `${__dirname}/../user_uploads/event_images`;
+  const eventById = await event.getOne(req.params.id);
+  const fileName = eventById.imagePath;
+  if (!fileName) {
+    return res.status(400).json({
+      status: "failed",
+      error: "Error has no image attached",
+    });
+  }
+  const filePath = `${dir}/${fileName}`;
+  if (!fs.existsSync(filePath)) {
+    return res.status(400).json({
+      status: "failed",
+      error: "No such file in storage",
+    });
+  }
+  const resolvedPath = path.resolve(filePath); //Bez ova OS ne dozvoluva da se prati slikata
+  return res.sendFile(resolvedPath);
+};
+
 const read = async (req, res) => {
   const userDir = `user_${req.auth.id}`;
   const userDirPath = `${__dirname}/../user_uploads/users/${userDir}`;
@@ -172,6 +193,7 @@ const removeEvent = async (name) => {
 module.exports = {
   upload,
   uploadEvent,
+  readEvent,
   read,
   remove,
   removeEvent,

@@ -161,6 +161,23 @@ const updateUserCred = async (req, res) => {
   }
 };
 
+const getHistory = async (req, res) => {
+  try {
+    console.log(req.auth.id);
+    const { cart } = await user.getUserById(req.auth.id);
+    return res.status(200).json({
+      status: "success",
+      cart,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      status: "failed",
+      error: "Internal server error",
+    });
+  }
+};
+
 const forgotPass = async (req, res) => {
   try {
   } catch (err) {
@@ -186,7 +203,6 @@ const resetPass = async (req, res) => {
     }
     const acc = await user.getUserById(id);
     const passwordSameAsOld = bcrypt.compareSync(pass, acc.password);
-    console.log(passwordSameAsOld);
     if (passwordSameAsOld) {
       return res.status(400).json({
         status: "failed",
@@ -307,6 +323,7 @@ module.exports = {
   register,
   login,
   resetPass,
+  getHistory,
   removeUser,
   updateUserCred,
   getAllUsers,

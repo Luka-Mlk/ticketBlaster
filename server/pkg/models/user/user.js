@@ -26,7 +26,12 @@ const userSchema = mongoose.Schema({
   },
   cart: [
     {
-      _id: false /* Za mongoose da ne generira avtomatski ushte eden nepotreben id ALI NE RABOTI*/,
+      // Ova raboti nekako
+      // _id: {
+      //   id: false,
+      // },
+      _id: false,
+      /*Za mongoose da ne generira avtomatski ushte eden nepotreben id ALI NE RABOTI*/
       event: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "event",
@@ -61,7 +66,6 @@ const getUserByEmail = async (email) => {
 
 const getUserById = async (_id) => {
   try {
-    console.log(_id);
     return await User.findOne({ _id });
   } catch (err) {
     throw err;

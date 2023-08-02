@@ -20,6 +20,7 @@ function User() {
   };
   const token = localStorage.getItem("JWT");
   const decodedToken = jwt_decode(token);
+  console.log(decodedToken);
 
   const handleLogOut = () => {
     localStorage.clear("JWT");

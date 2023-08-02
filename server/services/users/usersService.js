@@ -37,6 +37,7 @@ api.delete("/api/user/remove-account", user.remove);
 api.delete("/api/user/remove-user", user.removeUser);
 api.post("/api/user/forgot-password", user.forgotPass);
 
+api.get("/api/user/history", user.getHistory);
 api.get("/api/user/all-users", user.getAllUsers);
 api.get("/api/user/my-profile", user.getSingleUser);
 

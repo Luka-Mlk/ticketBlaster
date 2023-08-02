@@ -9,11 +9,12 @@ import "../../assets/userPage/userPage.css";
 // load one component that within itself contains another dynamicaly changing component depending on what button is clicked
 function TicketHistoryPage() {
   const [authToken, setAuthToken] = useState("");
+  const [cart, setCart] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     getToken();
-  }, [authToken]);
+  }, []);
 
   const getToken = () => {
     if (!localStorage.getItem("JWT")) {
@@ -21,6 +22,7 @@ function TicketHistoryPage() {
     }
     setAuthToken(localStorage.getItem("JWT"));
   };
+
   if (!localStorage.getItem("JWT")) return navigate("/");
   const token = localStorage.getItem("JWT");
   const decodedToken = jwt_decode(token);
