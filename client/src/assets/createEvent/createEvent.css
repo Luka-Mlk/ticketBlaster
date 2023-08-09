@@ -107,16 +107,39 @@ select {
   padding: 15px;
 }
 
-.create--event--tp {
+.create--event--price--location {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  gap: 40px;
+  margin: 22px 0 0 0;
+}
+.creat--event--ticket--price {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin: 22px 0 0 0;
 }
 
-.create--event--tp input {
+.creat--event--ticket--price input {
   width: 357px;
   height: 42px;
+}
+
+.create--event--location {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.creat--event--location--inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.creat--event--location--inputs input {
+  height: 42px;
+  width: 200px;
 }
 
 .related--events--create {
@@ -149,11 +172,11 @@ select {
   padding: 0 44px;
 }
 
-input[type="date"]::-webkit-inner-spin-button,
+/* input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
-  /* filter: invert(1); */
-  display: none;
-}
+   filter: invert(1); 
+   display: none; 
+} */
 
 .related--events--narrow--parent {
   display: flex;
@@ -161,4 +184,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   justify-content: flex-start;
   flex-wrap: wrap;
   margin: 44px 0 0 0;
+}
+
+.save--new--event--button--div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.save--new--event--button {
+  background-color: var(--clr-black);
+  border-radius: 20px;
+  color: var(--clr-white);
+  padding: 10px 41.5px;
 }

@@ -33,11 +33,12 @@ api.post("/api/user/register", user.register);
 api.post("/api/user/login", user.login);
 api.patch("/api/user/reset-password", user.resetPass);
 api.patch("/api/user/change-credentials", user.updateUserCred);
+api.patch("/api/user/change-admin", user.changeAdminStatus);
 api.delete("/api/user/remove-account", user.remove);
-api.delete("/api/user/remove-user", user.removeUser);
+api.delete("/api/user/remove-user/:id", user.removeUser);
 api.post("/api/user/forgot-password", user.forgotPass);
 
-api.get("/api/user/history", user.getHistory);
+api.get("/api/user/cart", user.getCart);
 api.get("/api/user/all-users", user.getAllUsers);
 api.get("/api/user/my-profile", user.getSingleUser);
 

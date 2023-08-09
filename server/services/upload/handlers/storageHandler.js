@@ -130,6 +130,27 @@ const readEvent = async (req, res) => {
   return res.sendFile(resolvedPath);
 };
 
+const readAllUserImg = async (req, res) => {
+  const userDir = `user_${req.params.id}`;
+  const userDirPath = `${__dirname}/../user_uploads/users/${userDir}`;
+  const fileName = req.params.imagePath;
+  if (fileName === "noImage") {
+    return res.status(400).json({
+      status: "failed",
+      error: "User had no profile picture",
+    });
+  }
+  const filePath = `${userDirPath}/${fileName}`;
+  if (!fs.existsSync(filePath)) {
+    return res.status(400).json({
+      status: "failed",
+      error: "No such file in storage",
+    });
+  }
+  const resolvedPath = path.resolve(filePath);
+  return res.sendFile(resolvedPath);
+};
+
 const read = async (req, res) => {
   const userDir = `user_${req.auth.id}`;
   const userDirPath = `${__dirname}/../user_uploads/users/${userDir}`;
@@ -195,6 +216,7 @@ module.exports = {
   uploadEvent,
   readEvent,
   read,
+  readAllUserImg,
   remove,
   removeEvent,
 };

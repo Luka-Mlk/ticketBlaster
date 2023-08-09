@@ -9,7 +9,7 @@ import "../../assets/userPage/userPage.css";
 // load one component that within itself contains another dynamicaly changing component depending on what button is clicked
 function TicketHistoryPage() {
   const [authToken, setAuthToken] = useState("");
-  const [cart, setCart] = useState([]);
+  // const [cart, setCart] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {

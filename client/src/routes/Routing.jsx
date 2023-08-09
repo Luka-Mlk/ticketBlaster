@@ -11,6 +11,7 @@ import TicketHistoryPage from "../pages/ticketHistory/TicketHistory";
 import ManageUsers from "../pages/manageUsers/ManageUsers";
 import Events from "../pages/eventsUser/Events";
 import CreateEventPage from "../pages/createEvent/CreateEventPage";
+import Checkout from "../pages/checkout/Checkout";
 
 function Routing() {
   return (
@@ -20,12 +21,13 @@ function Routing() {
       <Route path="/register" element={<Register />} /> {/*Done*/}
       <Route path="/events/:catergory" element={<ListAll />} />
       <Route path="/event" element={<Event />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/user" element={<User />} />
+      <Route path="/cart" element={<Cart />} /> {/*Done*/}
+      <Route path="/checkout" element={<Checkout />} /> {/*Done*/}
+      <Route path="/user" element={<User />} /> {/*Done*/}
       <Route path="/ticket-history" element={<TicketHistoryPage />} />
-      <Route path="/manage-users" element={<ManageUsers />} />
-      <Route path="/events" element={<Events />} />
-      <Route path="/create-event" element={<CreateEventPage />} />
+      <Route path="/manage-users" element={<ManageUsers />} /> {/*Done*/}
+      <Route path="/events" element={<Events />} /> {/*Done*/}
+      <Route path="/create-event" element={<CreateEventPage />} /> {/*Done*/}
     </Routes>
   );
 }

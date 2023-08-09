@@ -161,9 +161,35 @@ const updateUserCred = async (req, res) => {
   }
 };
 
-const getHistory = async (req, res) => {
+const changeAdminStatus = async (req, res) => {
   try {
-    console.log(req.auth.id);
+    if (!req.auth.admin) {
+      return res.statuS(400).json({
+        status: "failed",
+        error: "Must be admin to change user admin status",
+      });
+    }
+    console.log(req.body);
+    const { id, bool } = req.body;
+    const usr = await user.getUserById(id);
+    usr.admin = !usr.admin;
+    const nuUser = await user.updateUser(id, usr);
+    console.log(nuUser);
+    return res.status(200).json({
+      status: "success",
+      admin: usr.admin,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      status: "failed",
+      error: "Internal server error",
+    });
+  }
+};
+
+const getCart = async (req, res) => {
+  try {
     const { cart } = await user.getUserById(req.auth.id);
     return res.status(200).json({
       status: "success",
@@ -300,6 +326,7 @@ const getSingleUser = async (req, res) => {
 const removeUser = async (req, res) => {
   try {
     if (req.auth.admin) {
+      console.log(req.params);
       const deletedUser = await user.removeUser(req.params.id);
       return res.status(200).json({
         status: "success",
@@ -323,9 +350,10 @@ module.exports = {
   register,
   login,
   resetPass,
-  getHistory,
+  getCart,
   removeUser,
   updateUserCred,
+  changeAdminStatus,
   getAllUsers,
   getSingleUser,
   remove,

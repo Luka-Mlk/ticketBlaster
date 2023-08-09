@@ -1,10 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import imgPath from "../../assets/img/xzibit.jpg";
+import imgPathE from "../../assets/img/xzibit.jpg";
 
 import "../../assets/cards/wideAdmin/wideAdmin.css";
-function WideAdmin() {
+function WideAdmin({ event, updateEventsHandler }) {
   const [showPopup, setShowPopup] = useState(false);
+  const [imgPath, setImgPath] = useState("");
+  const fetchEventImage = async () => {
+    const img = await fetch(
+      `http://localhost:10000/api/storage/get-event/${event._id}`,
+      {
+        method: "GET",
+      }
+    );
+    const imgData = await img.blob();
+    // console.log(imgData);
+    setImgPath(URL.createObjectURL(imgData));
+  };
+
+  const handleEventDelete = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:10000/api/event/delete/${event._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("JWT")}`,
+          },
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+
+      updateEventsHandler();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchEventImage();
+  }, []);
 
   return (
     <div className="wide--event--admin--card--parent">
@@ -17,11 +53,13 @@ function WideAdmin() {
         <div className="wide--event--admin--description">
           <div className="wide--event--admin--description--text--wrapper">
             <div className="wide--event--admin--desctiption--1">
-              <h3>Event name</h3>
-              <h4>Date</h4>
+              <h3>{event.eventName}</h3>
+              <h4>{event.date}</h4>
             </div>
             <div className="wide--event--admin--desctiption--2">
-              <p>Location</p>
+              <p>
+                {event.location.city}, {event.location.country}
+              </p>
             </div>
           </div>
           <div className="wide--event--admin--description--values">
@@ -51,7 +89,15 @@ function WideAdmin() {
               >
                 Cancel
               </button>
-              <button className="del--event--actions">Delete event</button>
+              <button
+                onClick={() => {
+                  handleEventDelete();
+                  setShowPopup(false);
+                }}
+                className="del--event--actions"
+              >
+                Delete event
+              </button>
             </div>
           </div>
         )}

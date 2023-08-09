@@ -6,7 +6,6 @@ import Footer from "../../components/footer/Footer";
 import jwt_decode from "jwt-decode";
 
 import "../../assets/userPage/userPage.css";
-// load one component that within itself contains another dynamicaly changing component depending on what button is clicked
 function Events() {
   const [authToken, setAuthToken] = useState("");
   const navigate = useNavigate();

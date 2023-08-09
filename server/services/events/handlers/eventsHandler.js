@@ -3,6 +3,7 @@ const user = require("../../../pkg/models/user/user.js");
 const storage = require("../../upload/handlers/storageHandler.js");
 
 const createEvent = async (req, res) => {
+  console.log(req.body);
   try {
     if (!req.auth) {
       return res.status(400).json({
@@ -221,12 +222,13 @@ const removeEvent = async (req, res) => {
     if (req.auth.admin) {
       // if user is admin allow deletion
       const selectedEvent = await event.getOne(req.params.id);
-      storage.removeEvent(selectedEvent.imagePath);
+      if (selectedEvent.imagePath) storage.removeEvent(selectedEvent.imagePath);
       const removedEvent = event.remove(req.params.id);
       // return res.status(204).send(removedEvent);
-      return res.status(204).json({
+      return res.status(200).json({
         status: "success",
-        removedEvent,
+        message: "?????",
+        // removedEvent,
       });
     }
     // res.status(400).send("Incorrect privileges");

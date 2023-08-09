@@ -1,9 +1,20 @@
 import React, { useEffect, useState } from "react";
-import imgPath from "../../assets/img/xzibit.jpg";
-import "../../assets/cards/wide/wide.css";
-import { Link } from "react-router-dom";
-function WideCard({ eventInfo }) {
+
+import posterImg from "../../assets/img/xzibit.jpg";
+import "../../assets/cards/vNarrowCard/vNarrowCard.css";
+function VNarrowCard({ eventInfo, setTotalPriceFunc }) {
+  useEffect(() => {
+    fetchInfo();
+  }, []);
+
   const [event, setEvent] = useState({});
+
+  useEffect(() => {
+    if (event._id) {
+      setTotalPriceFunc(event.ticketPrice * eventInfo.numTickets);
+    }
+  }, [event, setEvent]);
+
   const [location, setLocation] = useState({});
   const [imgPath, setImgPath] = useState("");
 
@@ -34,32 +45,25 @@ function WideCard({ eventInfo }) {
     }
   };
 
-  useEffect(() => {
-    fetchInfo();
-  }, []);
   return (
-    <div className="wide--event--card--parent">
-      <div className="wide--event--card">
-        <div className="wide--event--image--wrapper">
-          <img src={imgPath} alt="event image" />
+    <div className="v--narrow--card--parent">
+      <div className="v--narrow--card">
+        <div className="v--narrow--img--wrapper">
+          <img src={imgPath} alt="" />
         </div>
-        <div className="wide--event--description">
-          <div className="wide--event--description--text">
+        <div className="v--narrow--event--info--wrapper">
+          <div className="v--narrow--event--info">
             <h3>{event.eventName}</h3>
             <h4>{event.date}</h4>
-            <p>
+            <h5>
               {location.city}, {location.country}
-            </p>
+            </h5>
           </div>
-          <div className="wide--event--description--values">
-            <h3>${event.ticketPrice} USD</h3>
-            <h4>
-              {eventInfo.numTickets} x $
-              {eventInfo.numTickets * event.ticketPrice} USD
-            </h4>
-            <Link className="wide--event--description--values--action">
-              Remove
-            </Link>
+          <div className="v--narrow--event--price">
+            <p>${event.ticketPrice * eventInfo.numTickets} USD</p>
+            <p>
+              {eventInfo.numTickets} x ${event.ticketPrice} USD
+            </p>
           </div>
         </div>
       </div>
@@ -68,4 +72,4 @@ function WideCard({ eventInfo }) {
   );
 }
 
-export default WideCard;
+export default VNarrowCard;

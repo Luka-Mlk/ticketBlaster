@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import HeaderLoggedIn from "../../components/header/HeaderLoggedIn";
 import Footer from "../../components/footer/Footer";
@@ -14,9 +14,6 @@ function CreateEventPage() {
         <div className="user--component--heading">
           <div className="user--component--heading--div">
             <h2>Events</h2>
-            <Link to="/create-event" className="create--event--button">
-              Create Event
-            </Link>
           </div>
           <div className="user--component--navigation">
             <Link to="/events" id="active">
@@ -30,7 +27,6 @@ function CreateEventPage() {
         </div>
         <CreateEvent />
       </div>
-      <Footer />
     </div>
   );
 }

@@ -21,7 +21,6 @@ function ManageUsers() {
     }
     setAuthToken(localStorage.getItem("JWT"));
   };
-  if (!localStorage.getItem("JWT")) return navigate("/");
   const token = localStorage.getItem("JWT");
   const decodedToken = jwt_decode(token);
 
@@ -47,7 +46,7 @@ function ManageUsers() {
             <button onClick={handleLogOut}>Log Out</button>
           </div>
         </div>
-        <Users />
+        <Users token={decodedToken} />
       </div>
       <Footer />
     </div>
