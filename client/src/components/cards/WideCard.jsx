@@ -46,7 +46,7 @@ function WideCard({ eventInfo }) {
         <div className="wide--event--description">
           <div className="wide--event--description--text">
             <h3>{event.eventName}</h3>
-            <h4>{event.date}</h4>
+            <h4>{String(new Date(event.date)).slice(4, 15)}</h4>
             <p>
               {location.city}, {location.country}
             </p>

@@ -103,6 +103,10 @@
   width: 100%;
 }
 
+img.QR {
+  opacity: 0.75;
+}
+
 .qr--event--details {
   width: 100%;
   display: flex;

@@ -23,13 +23,19 @@
   );
 }
 
+.hero--img--wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .hero--event img {
   position: absolute;
   z-index: -2;
-  top: 50%;
+  top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 110%;
+  width: 100%;
 }
 
 .hero--event--actions {

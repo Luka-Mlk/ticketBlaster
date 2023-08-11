@@ -18,6 +18,7 @@ api.use(
       /^\/api\/event\/$/,
       /^\/api\/event\/category\/.*/,
       /^\/api\/event\/\w+$/,
+      /^\/api\/event\/content\/([^/]+)$/i,
     ],
   })
 );

@@ -12,14 +12,16 @@ import ManageUsers from "../pages/manageUsers/ManageUsers";
 import Events from "../pages/eventsUser/Events";
 import CreateEventPage from "../pages/createEvent/CreateEventPage";
 import Checkout from "../pages/checkout/Checkout";
+import SearchResults from "../pages/searchResults/SearchResults";
 
 function Routing() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home />} /> {/*Done*/}
       <Route path="/login" element={<Login />} /> {/*Done*/}
       <Route path="/register" element={<Register />} /> {/*Done*/}
-      <Route path="/events/:catergory" element={<ListAll />} />
+      <Route path="/events/:catergory" element={<ListAll />} /> {/*Done*/}
+      <Route path="/events/search/:keyword" element={<SearchResults />} />
       <Route path="/event" element={<Event />} />
       <Route path="/cart" element={<Cart />} /> {/*Done*/}
       <Route path="/checkout" element={<Checkout />} /> {/*Done*/}

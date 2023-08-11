@@ -79,8 +79,16 @@ const getOne = async (id) => {
 const getByDetails = async (data) => {
   try {
     const reg = new RegExp(data, "i");
+    const query = {
+      $or: [
+        { eventName: reg },
+        { eventDetails: reg },
+        { "location.city": reg },
+        { "location.country": reg },
+      ],
+    };
     // i flag makes regex case insensitive and no \\b means it just needs to contain the word even if it means in another word
-    return await Event.find({ eventDetails: { $regex: reg } }); // query search that matches regular expression
+    return await Event.find(query); // query search that matches regular expression
   } catch (err) {
     throw err;
   }

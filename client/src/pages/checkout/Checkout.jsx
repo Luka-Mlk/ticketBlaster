@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import HeaderLoggedIn from "../../components/header/HeaderLoggedIn";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import "../../assets/checkoutPage/checkoutPage.css";
 import VNarrowCard from "../../components/cards/VNarrowCard";
@@ -12,8 +12,28 @@ function Checkout() {
       return prevTotal + calculatedTotal;
     });
   };
+  const navigate = useNavigate();
   const location = useLocation();
   const { cartData } = location.state;
+
+  const handleCheckout = async (e) => {
+    e.preventDefault();
+    const callCheckout = await fetch(
+      "http://localhost:10000/api/ecommerce/checkout",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("JWT")}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const dataFromCheckout = await callCheckout.json();
+
+    console.log(dataFromCheckout);
+
+    if (dataFromCheckout.status === "success") navigate("/ticket-history");
+  };
   return (
     <div className="checkout--page">
       <HeaderLoggedIn />
@@ -53,7 +73,7 @@ function Checkout() {
           </div>
           <div className="checkout--page--action--buttons">
             <Link to="/cart">Back</Link>
-            <button>Pay Now</button>
+            <button onClick={handleCheckout}>Pay Now</button>
           </div>
         </div>
       </div>

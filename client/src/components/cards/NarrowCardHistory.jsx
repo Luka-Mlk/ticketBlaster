@@ -6,6 +6,11 @@ import imgPath from "../../assets/img/xzibit.jpg";
 import tbBlack from "../../assets/img/ticketBlasterBlack.svg";
 import "../../assets/cards/narrow/narrow.css";
 function NarrowCardHistory({ id }) {
+  // const date = new Date();
+  // const day = String(date.getDate()).padStart(2, "0");
+  // const month = String(date.getMonth() + 1).padStart(2, "0");
+  // const year = date.getFullYear();
+  // console.log(`${day}, ${month}, ${year}`);
   const [showPopup, setShowPopup] = useState(false);
   const [qrCodeImg, setQrCodeImg] = useState("");
   const [imgPath, setImgPath] = useState("");
@@ -27,8 +32,7 @@ function NarrowCardHistory({ id }) {
 
   const fetchInfo = async () => {
     try {
-      const path = `http://localhost:10000/api/event/${id.event}`;
-      const res = await fetch(path, {
+      const res = await fetch(`http://localhost:10000/api/event/${id}`, {
         method: "GET",
       });
       const data = await res.json();
@@ -62,12 +66,11 @@ function NarrowCardHistory({ id }) {
   return (
     <div className="narrow--event--card">
       <span id="imgWrapper">
-        {/* <img src={imgPath} alt="card image" /> */}
         <img src={imgPath} alt={event.eventName} />
       </span>
       <div className="narrow--event--description">
         <h3>{event.eventName}</h3>
-        <h4>{event.date}</h4>
+        <h4>{String(new Date(event.date)).slice(4, 15)}</h4>
         <p>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum cum
           aliquid veniam aut rem. Culpa soluta repellat corrupti beatae

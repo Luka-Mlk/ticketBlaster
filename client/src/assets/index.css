@@ -103,12 +103,14 @@ button:hover {
   width: 100%;
   text-align: center;
   border: 1px solid var(--clr-black);
-  color: var(--clr-black);
   font-size: var(--fs-mm);
   font-weight: var(--fw-lb);
   padding: 10px 0;
   margin: 0 0 90px 0;
   border-radius: 20px;
+}
+.content--button > * {
+  color: var(--clr-black);
 }
 /* EVENTS LIST PAGE */
 .events--page {

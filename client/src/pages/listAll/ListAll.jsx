@@ -6,11 +6,8 @@ import ContentButton from "../../components/ContentButton/ContentButton";
 import Footer from "../../components/footer/Footer";
 import HeaderLoggedIn from "../../components/header/HeaderLoggedIn";
 function ListAll() {
-  useEffect(() => {
-    getToken();
-  }, []);
-
   const [authToken, setAuthToken] = useState("");
+  const [events, setEvents] = useState([]);
 
   const { pathname } = useLocation();
   let header = "";
@@ -21,15 +18,32 @@ function ListAll() {
     header = "Stand-up Comedy";
   }
 
+  useEffect(() => {
+    getToken();
+    fetchEvents();
+  }, [pathname]);
+
+  const fetchEvents = async () => {
+    const category = pathname.split("/");
+    const response = await fetch(
+      `http://localhost:10000/api/event/category/${category[2]}`
+    );
+    const data = await response.json();
+    const eventsArr = data.eventsByCategory;
+    setEvents(eventsArr);
+    // console.log(eventsArr);
+  };
+
   const getToken = () => {
     setAuthToken(localStorage.getItem("JWT"));
   };
+
   return (
     <div className="events--page">
       {authToken ? <HeaderLoggedIn /> : <Header />}
       <div className="events--page--wrapper">
         <h2>{header}</h2>
-        <ListAllType />
+        <ListAllType events={events} />
         <ContentButton />
       </div>
       <Footer />

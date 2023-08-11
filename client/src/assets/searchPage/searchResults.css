@@ -1,0 +1,15 @@
+.search--page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.search--wrapper {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.search--results--for {
+  font-size: var(--fs-xxl);
+}
