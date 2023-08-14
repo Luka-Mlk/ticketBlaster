@@ -3,12 +3,33 @@ import React, { useState, useRef, useEffect } from "react";
 import "../../assets/createEvent/createEvent.css";
 import NarrowVertical from "../cards/NarrowVertical";
 import Footer from "../footer/Footer";
-import { useNavigate } from "react-router-dom";
-function CreateEvent() {
+import { useNavigate, useParams } from "react-router-dom";
+function UpdateEventComponent() {
+  const { id } = useParams();
+  const [singleEvent, setSingleEvents] = useState({
+    eventName: "",
+    date: "",
+    location: {
+      city: "",
+      country: "",
+    },
+    relatedEvents: [],
+    eventDetails: "",
+    category: "",
+    imagePath: "",
+    ticketPrice: "",
+  });
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
-  const [location, setLocation] = useState({});
+  const [eventName, setEventName] = useState("");
+  const [eventCategory, setEventCategory] = useState("");
+  const [eventDate, setEventDate] = useState("");
   const [imgName, setImgName] = useState("");
+  const [imgSrc, setImgSrc] = useState(null);
+  const [eventDetails, setEventDetails] = useState("");
+  const [ticketPrice, setTicketPrice] = useState("");
+  const [location, setLocation] = useState({ city: "", country: "" });
 
   const [events, setEvents] = useState([]);
   const [relatedEvents, setRelatedEvents] = useState([]);
@@ -16,62 +37,51 @@ function CreateEvent() {
   const [selectedRelatedEvent, setSelectedRelatedEvent] = useState("");
   const [errObj, setErrObj] = useState({});
   const [megaErr, setMegaErr] = useState("");
-  const [imgSrc, setImgSrc] = useState(null);
   const formDataRef = useRef(new FormData());
 
-  const removeRelatedEvent = (e, event) => {
-    e.preventDefault();
-    console.log(`Trying to remove event with id ${event}`);
-    const filteredArr = relatedEvents.filter((item) => item !== event);
-    console.log(filteredArr);
-    setRelatedEvents(filteredArr);
+  const EventFetch = async () => {
+    const response = await fetch(`http://localhost:10000/api/event/${id}`);
+    const data = await response.json();
+    console.log(data);
+    const imgResponse = await fetch(
+      `http://localhost:10000/api/storage/get-event/${id}`
+    );
+    const imgData = await imgResponse.blob();
+    setImgSrc(URL.createObjectURL(imgData));
+    setSingleEvents(data.singleEvent);
+    setEventName(data.singleEvent.eventName);
+    setEventCategory(data.singleEvent.category);
+    setLocation(data.singleEvent.location);
+    setEventDetails(data.singleEvent.eventDetails);
+    setTicketPrice(data.singleEvent.ticketPrice);
+  };
+
+  const fetchEvents = async () => {
+    const response = await fetch("http://localhost:10000/api/event");
+    const data = await response.json();
+
+    // console.log(data);
+    setEvents(data.events);
+  };
+
+  useEffect(() => {
+    EventFetch();
+    fetchEvents();
+  }, []);
+
+  const validateName = (e) => {
+    if (e.length > 20) return;
   };
 
   const validateFormData = (e) => {
     let err = {
-      eventName: "",
-      imagePath: "",
-      category: "",
-      date: "",
-      eventDetails: "",
-      ticketPrice: "",
+      eventName:
+        e.eventName > 20 ? "Must not be longer than 20 characters" : "",
+      date: e.eventDate === 0 ? "Must be a valid date" : "",
+      eventDetails:
+        e.eventDetails.length < 20 ? "Must be longer than 20 characters" : "",
+      ticketPrice: e.ticketPrice == 0 ? "Price cannot be 0" : "",
     };
-
-    const validationRules = {
-      eventName: (value) => {
-        if (value.length > 20 || value === "")
-          err.eventName = "Must not be longer than 20 characters";
-      },
-      imagePath: (value) => {
-        if (value === "") err.imagePath = "Must contain image";
-        else {
-          errObj.imagePath = "";
-        }
-      },
-      category: (value) => {
-        if (value === "") err.category = "Must contain category";
-        else {
-          errObj.category = "";
-        }
-      },
-      relatedEvents: (value) => (err.relatedEvents = ""),
-      date: (value) => {
-        if (/^\d{2}-\d{2}-\d{4}$/.test(value) || value === "")
-          err.date = "Must be valid date";
-      },
-      eventDetails: (value) => {
-        if (value.length < 20 || value === "")
-          err.eventDetails = "Must be longer than 20 characters";
-      },
-      ticketPrice: (value) => {
-        if (value == 0 || value === "") err.ticketPrice = "Price cannot be 0";
-      },
-    };
-
-    for (const item in e) {
-      const value = e[item];
-      validationRules[item](value);
-    }
 
     return err;
   };
@@ -81,71 +91,26 @@ function CreateEvent() {
     return valueArr.every((value) => value === "");
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    console.log(formData);
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  //   console.log(formData);
+  // };
+
+  const handleEventName = (e) => {
+    setEventName(e.target.value);
   };
 
-  const handleLocationChange = (e) => {
-    const { name, value } = e.target;
-    setLocation((prev) => ({ ...prev, [name]: value }));
+  const handleCategory = (e) => {
+    setEventCategory(e.target.value);
   };
 
-  const handleSendForm = async (e) => {
-    e.preventDefault();
-    if (Object.values(formData).length === 0) {
-      setMegaErr("All fields are required");
-      return;
-    }
-    const errors = validateFormData(formData);
-    setErrObj(errors);
-    console.log(errors);
-    if (!objectIsEmpty(errors)) {
-      console.log(errObj);
-      return;
-    }
-    if (!imgName) {
-      setErrObj((pre) => ({ ...pre, imagePath: "Image is required" }));
-      return;
-    }
-    const locationVals = Object.values(location);
-    if (
-      locationVals.length === 0 ||
-      locationVals[0] === "" ||
-      locationVals[1] === ""
-    ) {
-      setErrObj((pre) => ({ ...pre, location: "Location is required" }));
-      return;
-    }
-    const result = {
-      ...formData,
-      imagePath: imgName,
-      location: location,
-      relatedEvents: relatedEvents,
-    };
-
-    console.log(result);
-    const response = await fetch(
-      "http://localhost:10000/api/event/create-event",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("JWT")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(result),
-      }
-    );
-    const data = await response.json();
-
-    console.log(data);
-    if (data.status === "success") {
-      navigate("/events");
-    }
+  const handleDateChange = (e) => {
+    setEventDate(e.target.value);
   };
-
-  // const formData = new FormData();
 
   const handleFileChange = (e) => {
     e.preventDefault();
@@ -163,7 +128,6 @@ function CreateEvent() {
   };
   const handleDrop = (e) => {
     e.preventDefault();
-    // console.log(e.dataTransfer);
     const file = e.dataTransfer.files[0];
     if (file) {
       setImgSrc(URL.createObjectURL(file));
@@ -190,6 +154,22 @@ function CreateEvent() {
     console.log(data);
   };
 
+  const handleDetails = (e) => {
+    setEventDetails(e.target.value);
+  };
+
+  const handlePrice = (e) => {
+    setTicketPrice(e.target.value);
+  };
+
+  const handleLocationChange = (e) => {
+    const { name, value } = e.target;
+    setLocation((prev) => ({ ...prev, [name]: value }));
+    console.log(location);
+  };
+
+  // const formData = new FormData();
+
   const handleSelectChange = (event) => {
     const { value } = event.target;
     setSelectedRelatedEvent(value);
@@ -205,19 +185,60 @@ function CreateEvent() {
       if (selectedRelatedEvent === relatedEvents[i]) return;
     }
     setRelatedEvents((previous) => [...previous, selectedRelatedEvent]);
+    console.log(relatedEvents);
   };
 
-  const fetchEvents = async () => {
-    const response = await fetch("http://localhost:10000/api/event");
+  const removeRelatedEvent = (e, event) => {
+    e.preventDefault();
+    console.log(`Trying to remove event with id ${event}`);
+    const filteredArr = relatedEvents.filter((item) => item !== event);
+    console.log(filteredArr);
+    setRelatedEvents(filteredArr);
+  };
+
+  const handleSendForm = async (e) => {
+    e.preventDefault();
+    const formVals = {
+      eventName,
+      eventCategory,
+      eventDate: eventDate || singleEvent.date,
+      imagePath: imgName || singleEvent.imagePath,
+      eventDetails,
+      ticketPrice: Number(ticketPrice) || "",
+      location: {
+        city: location.city || singleEvent.location.city,
+        country: location.country || singleEvent.location.country,
+      },
+      relatedEvents:
+        relatedEvents.length > 0 ? relatedEvents : singleEvent.relatedEvents,
+    };
+    console.log(formVals);
+    const errors = validateFormData(formVals);
+    console.log(errors);
+    setErrObj(errors);
+    if (!objectIsEmpty(errors)) {
+      console.log(errObj);
+      return;
+    }
+
+    const response = await fetch(
+      `http://localhost:10000/api/event/${singleEvent._id}/update`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("JWT")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formVals),
+      }
+    );
     const data = await response.json();
 
-    // console.log(data);
-    setEvents(data.events);
+    console.log(data);
+    if (data.status === "success") {
+      navigate("/events");
+    }
   };
-
-  useEffect(() => {
-    fetchEvents();
-  }, []);
 
   return (
     <form className="create--event--component" encType="multipart/form-data">
@@ -228,8 +249,10 @@ function CreateEvent() {
             required
             type="text"
             name="eventName"
+            value={eventName}
             onChange={(e) => {
-              handleInputChange(e);
+              handleEventName(e);
+              console.log(eventName);
             }}
           />
           {errObj.eventName && (
@@ -241,12 +264,12 @@ function CreateEvent() {
           {/* <input type="text" /> */}
           <select
             name="category"
+            value={eventCategory}
             onChange={(e) => {
-              handleInputChange(e);
+              handleCategory(e);
             }}
             id=""
           >
-            <option value="">Select category</option>
             <option value="concert">Musical Concert</option>
             <option value="standup">Stand-Up Comedy</option>
           </select>
@@ -260,8 +283,9 @@ function CreateEvent() {
             required
             type="date"
             name="date"
+            value={eventDate}
             onChange={(e) => {
-              handleInputChange(e);
+              handleDateChange(e);
             }}
           />
         </div>
@@ -304,9 +328,10 @@ function CreateEvent() {
             required
             name="eventDetails"
             onChange={(e) => {
-              handleInputChange(e);
+              handleDetails(e);
             }}
             id=""
+            value={eventDetails}
           ></textarea>
           {errObj.eventDetails && (
             <p className="error-message">{errObj.eventDetails}</p>
@@ -319,8 +344,9 @@ function CreateEvent() {
                 type="number"
                 name="ticketPrice"
                 onChange={(e) => {
-                  handleInputChange(e);
+                  handlePrice(e);
                 }}
+                value={ticketPrice}
               />
               {errObj.ticketPrice && (
                 <p className="error-message">{errObj.ticketPrice}</p>
@@ -333,6 +359,7 @@ function CreateEvent() {
                   required
                   name="city"
                   type="text"
+                  value={location.city}
                   placeholder="City"
                   onChange={handleLocationChange}
                 />
@@ -340,6 +367,7 @@ function CreateEvent() {
                   required
                   name="country"
                   type="text"
+                  value={location.country}
                   placeholder="Country"
                   onChange={handleLocationChange}
                 />
@@ -407,4 +435,4 @@ function CreateEvent() {
   );
 }
 
-export default CreateEvent;
+export default UpdateEventComponent;

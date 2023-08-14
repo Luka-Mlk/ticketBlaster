@@ -6,6 +6,7 @@ function WideCard({ eventInfo }) {
   const [event, setEvent] = useState({});
   const [location, setLocation] = useState({});
   const [imgPath, setImgPath] = useState("");
+  const [cartRefresh, setCartRefresh] = useState(false);
 
   const fetchInfo = async () => {
     try {
@@ -37,6 +38,21 @@ function WideCard({ eventInfo }) {
   useEffect(() => {
     fetchInfo();
   }, []);
+
+  const removeFromCart = async () => {
+    console.log(event);
+    const response = await fetch(
+      `http://localhost:10000/api/event/${event._id}/remove-from-cart`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("JWT")}`,
+        },
+      }
+    );
+    const data = await response.json();
+  };
+
   return (
     <div className="wide--event--card--parent">
       <div className="wide--event--card">
@@ -57,7 +73,12 @@ function WideCard({ eventInfo }) {
               {eventInfo.numTickets} x $
               {eventInfo.numTickets * event.ticketPrice} USD
             </h4>
-            <Link className="wide--event--description--values--action">
+            <Link
+              className="wide--event--description--values--action"
+              onClick={(e) => {
+                removeFromCart();
+              }}
+            >
               Remove
             </Link>
           </div>

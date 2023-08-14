@@ -46,7 +46,10 @@ function WideAdmin({ event, updateEventsHandler }) {
     <div className="wide--event--admin--card--parent">
       <div className="wide--event--admin--card">
         {/* <div className="wide--event--admin--image--wrapper"> */}
-        <Link className="wide--event--admin--image--wrapper">
+        <Link
+          to={`/edit-event/${event._id}`}
+          className="wide--event--admin--image--wrapper"
+        >
           <img src={imgPath} alt="event image" />
         </Link>
         {/* </div> */}

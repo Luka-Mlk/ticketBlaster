@@ -13,6 +13,7 @@ import Events from "../pages/eventsUser/Events";
 import CreateEventPage from "../pages/createEvent/CreateEventPage";
 import Checkout from "../pages/checkout/Checkout";
 import SearchResults from "../pages/searchResults/SearchResults";
+import UpdateEvent from "../pages/updateEventPage/UpdateEvent";
 
 function Routing() {
   return (
@@ -22,7 +23,9 @@ function Routing() {
       <Route path="/register" element={<Register />} /> {/*Done*/}
       <Route path="/events/:catergory" element={<ListAll />} /> {/*Done*/}
       <Route path="/events/search/:keyword" element={<SearchResults />} />
-      <Route path="/event" element={<Event />} />
+      {/*Done*/}
+      <Route path="/event/:id" element={<Event />} />
+      <Route path="/edit-event/:id" element={<UpdateEvent />} />
       <Route path="/cart" element={<Cart />} /> {/*Done*/}
       <Route path="/checkout" element={<Checkout />} /> {/*Done*/}
       <Route path="/user" element={<User />} /> {/*Done*/}

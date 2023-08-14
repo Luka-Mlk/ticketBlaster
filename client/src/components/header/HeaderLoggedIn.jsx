@@ -9,25 +9,11 @@ function HeaderLoggedIn() {
 
   const handleSearchInputChange = (e) => {
     setSearchVal(e.target.value);
-    // console.log(searchVal);
   };
 
   const handleFormSubmission = async (e) => {
     e.preventDefault();
     navigate(`/events/search/${searchVal}`);
-    // const response = await fetch(
-    //   `http://localhost:10000/api/event/content/${searchVal}`,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   }
-    // );
-
-    // const data = await response.json();
-
-    // console.log(data);
   };
 
   return (

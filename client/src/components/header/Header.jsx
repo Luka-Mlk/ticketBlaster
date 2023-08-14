@@ -8,12 +8,12 @@ function Header() {
   const navigate = useNavigate();
 
   const handleSearchInputChange = (e) => {
-    console.log(searchVal);
+    setSearchVal(e.target.value);
   };
 
   const handleFormSubmission = async (e) => {
     e.preventDefault();
-    navigate(`/events/search${searchVal}`);
+    navigate(`/events/search/${searchVal}`);
   };
 
   return (

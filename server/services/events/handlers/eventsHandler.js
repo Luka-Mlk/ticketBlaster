@@ -187,10 +187,11 @@ const getEventByCategory = async (req, res) => {
 const updateEvent = async (req, res) => {
   try {
     if (req.auth.admin) {
+      console.log(req.body);
       // if user is admin allow update
-      const updatedEvent = event.update(req.params.id, req.body);
+      const updatedEvent = await event.update(req.params.id, req.body);
       // res.status(204).send(updatedEvent);
-      return res.status(204).json({
+      return res.status(200).json({
         status: "success",
         updatedEvent,
       });

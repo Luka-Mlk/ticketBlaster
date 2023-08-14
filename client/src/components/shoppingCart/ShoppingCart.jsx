@@ -5,6 +5,12 @@ import jwt_decode from "jwt-decode";
 import { Link } from "react-router-dom";
 
 function ShoppingCart() {
+  // const [refreshComponent, setRefreshComponent] = useState(false);
+  // const refresh = () => {
+  //   console.log("🤓");
+  //   setRefreshComponent(!refreshComponent);
+  // };
+
   useEffect(() => {
     getCart(localStorage.getItem("JWT"));
   }, []);

@@ -35,7 +35,7 @@ function Hero({ event }) {
               </h3>
             )}
           </div>
-          <Link className="hero--action" to="/event">
+          <Link className="hero--action" to={`/event/${event._id}`}>
             Get Tickets
           </Link>
         </div>
