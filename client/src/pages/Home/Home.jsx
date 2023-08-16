@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/header/Header";
-import Hero from "../../components/hero/Hero";
+import Hero from "../../components/hero/hero";
 import NarrowCard from "../../components/cards/NarrowCard";
 import ContentButton from "../../components/ContentButton/ContentButton";
 import Footer from "../../components/footer/Footer";

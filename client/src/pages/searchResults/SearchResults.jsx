@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import HeaderLoggedIn from "../../components/header/HeaderLoggedIn";
 import Header from "../../components/header/Header";
 import { useParams } from "react-router-dom";
-import WideSearch from "../../components/cards/wideSearch";
+import WideSearch from "../../components/cards/WideSearch";
 
 import "../../assets/searchPage/searchResults.css";
 function SearchResults() {
